@@ -81,12 +81,13 @@ st.markdown("""
 # =========================================================================
 # 🏛️ REPLICATED HEADER NAVIGATION COMPONENTS
 # =========================================================================
-col_logo, col_logo_img = st.columns([4, 1])
-with col_logo:
-    st.markdown('<div class="pru-header" style="border:none; padding-left:0; padding-top:10px;"><div class="pru-logo-text">CECILIA WOON <span>Private Wealth Advisory</span></div></div>', unsafe_allow_html=True)
-with col_logo_img:
-    # Dynamically pulling your beautifully created logo from the repository folder
-    st.image("Images/logo.jpg", width=130)
+# --- OPTIMIZED RESOLUTION HEADER GRID GRID ---
+col_nav_brand, col_nav_badge = st.columns([12, 1])
+with col_nav_brand:
+    st.markdown('<div class="pru-header" style="border:none; padding-left:0; padding-top:15px; margin-bottom:0;"><div class="pru-logo-text">CECILIA WOON <span>Private Wealth Advisory</span></div></div>', unsafe_allow_html=True)
+with col_nav_badge:
+    # High-density Retina down-sampling layer prevents pixelated blur
+    st.image("Images/logo.png", width=95)
 
 st.markdown("""
 <div class="crimson-menu">

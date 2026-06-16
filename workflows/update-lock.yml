@@ -1,4 +1,4 @@
-yamlname: Update UV Lock
+name: Update UV Lock
 
 on:
   push:

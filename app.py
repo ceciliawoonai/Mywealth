@@ -22,7 +22,95 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
     <div id="canvas-mount-node" style="display:flex; justify-content:center;"></div>
 </div>
 
-<script src="https://d3js.org"></script>
+<script>
+    // --- NATIVE SECURE LOCAL KINETIC GRAPH ENGINE ---
+    // Completely replaces external D3 downloads to bypass browser security sandboxes
+    (function() {
+        const c_nodes = DATA_REPLACE_TOKEN;
+        const cv = document.createElement("canvas");
+        const ctx = cv.getContext("2d");
+        const mount = document.getElementById("canvas-mount-node");
+        
+        cv.width = 900; cv.height = 360;
+        cv.style.width = "100%"; cv.style.display = "block";
+        mount.appendChild(cv);
+        
+        // Initialize randomized distribution vectors across the internal screen area
+        c_nodes.forEach(n => {
+            n.x = 80 + Math.random() * (cv.width - 160);
+            n.y = 80 + Math.random() * (cv.height - 160);
+            n.vx = (Math.random() - 0.5) * 1.5;
+            n.vy = (Math.random() - 0.5) * 1.5;
+            n.r = 35;
+        });
+        
+        let mouse = { x: -1000, y: -1000 };
+        cv.addEventListener("mousemove", (e) => {
+            const rect = cv.getBoundingClientRect();
+            mouse.x = (e.clientX - rect.left) * (cv.width / rect.width);
+            mouse.y = (e.clientY - rect.top) * (cv.height / rect.height);
+        });
+        cv.addEventListener("mouseleave", () => { mouse.x = -1000; mouse.y = -1000; });
+        
+        function loop() {
+            ctx.clearRect(0, 0, cv.width, cv.height);
+            
+            // Render active interconnected background constellation grid lines
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.03)";
+            ctx.lineWidth = 1;
+            for(let i=0; i<c_nodes.length; i++) {
+                for(let j=i+1; j<c_nodes.length; j++) {
+                    let dx = c_nodes[i].x - c_nodes[j].x;
+                    let dy = c_nodes[i].y - c_nodes[j].y;
+                    if(Math.sqrt(dx*dx + dy*dy) < 110) {
+                        ctx.beginPath(); ctx.moveTo(c_nodes[i].x, c_nodes[i].y);
+                        ctx.lineTo(c_nodes[j].x, c_nodes[j].y); ctx.stroke();
+                    }
+                }
+            }
+            
+            // Execute physical collision bounds and hover metrics checks loops
+            let current_active = null;
+            c_nodes.forEach(n => {
+                n.x += n.vx; n.y += n.vy;
+                if(n.x - n.r < 0 || n.x + n.r > cv.width) n.vx *= -1;
+                if(n.y - n.r < 0 || n.y + n.r > cv.height) n.vy *= -1;
+                
+                let m_dx = mouse.x - n.x; let m_dy = mouse.y - n.y;
+                let m_dist = Math.sqrt(m_dx*m_dx + m_dy*m_dy);
+                
+                if(m_dist < n.r) {
+                    current_active = n;
+                    n.x += m_dx * 0.05; n.y += m_dy * 0.05; // Elastic magnetic grid friction pull
+                }
+                
+                // Draw luxury glassmorphic network container circles node meshes
+                ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                ctx.fillStyle = n.sec === "Med" ? "rgba(227,24,55,0.12)" : n.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.03)";
+                ctx.fill();
+                ctx.strokeStyle = m_dist < n.r ? "#FF4D61" : n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255,255,255,0.2)";
+                ctx.lineWidth = m_dist < n.r ? 2.5 : 1.5;
+                ctx.stroke();
+                
+                // Draw high-scannability textual typography coordinates label tracks
+                ctx.fillStyle = "#FFFFFF"; ctx.font = "bold 10px sans-serif";
+                ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                ctx.fillText(n.label, n.x, n.y);
+            });
+            
+            if(current_active) {
+                parent.document.getElementById("matrix-ticker"); // Safe fall-through metrics logging
+                document.getElementById("matrix-ticker").innerText = `\u26A1 [NODE SHIELDED] Sector: ${current_active.sec} // Focus Target: ${current_active.label} -> Successfully protected via Cecilia's biological P&L matrices.`;
+            }
+            
+            requestAnimationFrame(loop);
+        }
+        loop();
+    })();
+</script>
+<script>
+    if(false) {
+
 <script>
     const nodes_payload = DATA_REPLACE_TOKEN;
     const w = 900, h = 380;

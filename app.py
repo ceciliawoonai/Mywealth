@@ -124,7 +124,7 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
         <div class="sakazuki-p">Cecilia is not your traditional financial advisor. She spent over a decade as a high-level global marketing strategist and e-commerce head managing massive corporate profit and loss statements (P&Ls) and multi-city international rollouts for market giants like <b>Wacom, Nokia, Honeywell, and L&L</b>. Holding a BA in Economics & Philosophy from NUS paired with an advanced Level 3 FinTech Developer certification (Python, AI, Analytics) from the NUS School of Computing, she synthesizes human behavioral data with unfeeling mathematical safety nets. She diagnoses emerging macro liabilities inside a human lifespan long before they cross into the public ledger.</div>
     </div>
 </div>
-    # =========================================================================
+       # =========================================================================
     # 🕹️ IMMERSIVE PHYSICS CANVAS NODE (THE 50 LIVESTREAM SPHERES MATRIX)
     # =========================================================================
     bubble_data_payload = [
@@ -165,7 +165,10 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
 </div>
 """, unsafe_allow_html=True)
 
-    # Isolated Raw string prevents character conflicts
+    # Dynamic JSON parsing instead of raw string substitution guarantees browser delivery
+    import json
+    nodes_json = json.dumps(bubble_data_payload)
+
     canvas_html_raw = r"""
     <div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px; width:100%; position:relative; min-height:460px; overflow:hidden;">
         <div id="matrix-ticker" style="font-family:'Courier New', monospace; font-size:12px; color:#FF4D61; margin-bottom:15px; min-height:18px;">[SYSTEM READY] Explore community nodes matrix telemetry...</div>
@@ -174,21 +177,21 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
     
     <script src="https://d3js.org"></script>
     <script>
-        const nodes_payload = {PAYLOAD_PLACEHOLDER};
+        const nodes_payload = DATA_REPLACE_TOKEN;
         const w = 900, h = 380;
         
         const svg = d3.select("#canvas-mount-node").append("svg").attr("width", w).attr("height", h);
         
         const f_sim = d3.forceSimulation(nodes_payload)
-            .force("charge", d3.forceManyBody().strength(12))
+            .force("charge", d3.forceManyBody().strength(15))
             .force("center", d3.forceCenter(w / 2, h / 2))
-            .force("collision", d3.forceCollide().radius(42))
+            .force("collision", d3.forceCollide().radius(40))
             .on("tick", ticked);
             
         const element_nodes = svg.selectAll("g").data(nodes_payload).enter().append("g")
             .call(d3.drag().on("start", dragstart).on("drag", dragged).on("end", dragend));
             
-        element_nodes.append("circle").attr("r", 36)
+        element_nodes.append("circle").attr("r", 34)
             .attr("fill", d => d.sec === "Med" ? "rgba(227,24,55,0.12)" : d.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.03)")
             .attr("stroke", d => d.sec === "Med" ? "#E31837" : d.sec === "Tech" ? "#D4AF37" : "rgba(255,255,255,0.2)")
             .attr("stroke-width", 1.5).style("cursor", "pointer")
@@ -204,18 +207,15 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
             .attr("text-anchor", "middle").attr("dy", ".3em").attr("fill", "#FFFFFF")
             .style("font-size", "10px").style("pointer-events", "none").style("font-family", "sans-serif");
             
-        function ticked() { element_nodes.attr("transform", d => `translate(${Math.max(40, Math.min(w - 40, d.x))}, ${Math.max(40, Math.min(h - 40, d.y))})`); }
+        function ticked() { element_nodes.attr("transform", d => `translate(${Math.max(45, Math.min(w - 45, d.x))}, ${Math.max(45, Math.min(h - 45, d.y))})`); }
         function dragstart(e, d) { if (!e.active) f_sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
         function dragged(e, d) { d.fx = e.x; d.fy = e.y; }
         function dragend(e, d) { if (!e.active) f_sim.alphaTarget(0); d.fx = null; d.fy = null; }
     </script>
-    """
-    
-    canvas_html_matrix = canvas_html_raw.replace("{PAYLOAD_PLACEHOLDER}", str(bubble_data_payload))
-    st.components.v1.html(canvas_html_matrix, height=620, scrolling=False)
+    """.replace("DATA_REPLACE_TOKEN", nodes_json)
 
+    st.components.v1.html(canvas_html_raw, height=520, scrolling=False)
 
-    st.markdown('<div style="padding: 40px 0 0 45px;">', unsafe_allow_html=True)
 
     if st.button("Initialize Risk Analysis Sequence", type="primary"):
         st.success("Sequence authorized. Cecilia Woon's office will review your corporate capital coordinates shortly.")

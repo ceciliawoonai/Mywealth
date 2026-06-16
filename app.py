@@ -81,10 +81,16 @@ st.markdown("""
 # =========================================================================
 # 🏛️ REPLICATED HEADER NAVIGATION COMPONENTS
 # =========================================================================
-# --- LOGO-ONLY LEFT HEADER ALIGNMENT ---
-st.markdown('<div style="padding-top: 15px; padding-bottom: 5px;"></div>', unsafe_allow_html=True)
-st.image("Images/logo.jpg", width=280)
+# --- OPTIMIZED NO-GAP LEFT HEADER ALIGNMENT ---
+st.markdown("""
+<style>
+    /* Force Streamlit's block containers to collapse padding gaps */
+    [data-testid="stVerticalBlock"] > div:has(img) { margin-bottom: -25px !important; padding-bottom: 0px !important; }
+    [data-testid="stMarkdownContainer"] { margin-bottom: 0px !important; }
+</style>
+""", unsafe_allow_html=True)
 
+st.image("Images/logo.png", width=260)
 st.markdown("""
 <div class="crimson-menu">
     <span>Bespoke Asset Solutions</span>

@@ -1,5 +1,16 @@
-import pandas as pd
-import plotly.graph_objects as go
+import subprocess
+import sys
+
+# --- AUTOMATIC BACKGROUND PACKAGE INSTALLER MATRIX ---
+# Bypasses Streamlit folder alignment and lockfile conflicts completely
+try:
+    import pandas as pd
+    import plotly.graph_objects as go
+except ModuleNotFoundError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pandas", "plotly"])
+    import pandas as pd
+    import plotly.graph_objects as go
+
 import streamlit as st
 
 st.set_page_config(page_title="Prudential Financial Advisers | Portfolio Hub", layout="wide")
@@ -26,7 +37,7 @@ st.markdown("""
     .sub-section-header { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: #111111; margin-bottom: 25px; }
     
     /* Standard PFA Cards Template Grid */
-    .pru-card { background: #ffffff; border: 1px solid #eaeaea; border-radius: 8px; padding: 25px; box-shadow: 0 4px 15 rgba(0,0,0,0.01); height: 100%; }
+    .pru-card { background: #ffffff; border: 1px solid #eaeaea; border-radius: 8px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.01); height: 100%; margin-bottom: 20px; }
     .pru-card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: bold; color: #111111; margin-bottom: 10px; }
     .pru-card-text { font-size: 14px; color: #555555; line-height: 1.5; }
     
@@ -40,7 +51,8 @@ st.markdown("""
 st.sidebar.markdown('<p class="pru-tag">System Navigator</p>', unsafe_allow_html=True)
 navigation_selection = st.sidebar.radio("Go To Section Workspace:", [
     "🌐 Client Information Portal",
-    "🔒 Core Analytics Matrix View"
+    "📊 Live Interactive CPF Engine (Smart Calculator)",
+    "🔒 Private Agent Computational View (Fintech Matrix)"
 ])
 
 if navigation_selection == "🌐 Client Information Portal":
@@ -66,13 +78,13 @@ if navigation_selection == "🌐 Client Information Portal":
     steps = ["1. Strategic Intake & Discovery", "2. Portfolio Optimization Modeling", "3. Periodic Allocation Calibration"]
     for step in steps:
         st.markdown(f'<div class="journey-step"><div class="journey-title">{step}</div></div>', unsafe_allow_html=True)
-    if st.button("Schedule Private Portfolio Strategy Call", type="primary"): st.success("Consultation request successfully logged.")
+    if st.button("Schedule Private Portfolio Strategy Call", type="primary"):
+        st.success("Consultation request successfully logged.")
+
+elif navigation_selection == "📊 Live Interactive CPF Engine (Smart Calculator)":
+    st.markdown('<div class="pru-header"><div class="pru-logo">SMART CALCULATOR SG<span>.</span></div><div class="pru-tag">2026 Core Engine Matrix</div></div>', unsafe_allow_html=True)
+    st.components.v1.iframe(src="https://smartcalculator.sg", height=850, scrolling=True)
 
 else:
-    st.markdown('<div class="pru-header"><div class="pru-logo">ANALYTICS BACKEND<span>.</span></div><div class="pru-tag">Agent Console</div></div>', unsafe_allow_html=True)
-    st.info("Portfolio Calculation Engine Running")
-    
-    ages = list(range(30, 66))
-    fig = go.Figure(go.Scatter(x=ages, y=[10000*(1.05**(a-30)) for a in ages], mode="lines", name="Growth", line=dict(color="#E31837", width=3)))
-    fig.update_layout(plot_bgcolor="white", margin=dict(l=20, r=20, t=20, b=20))
-    st.plotly_chart(fig, use_container_width=True)
+    st.markdown('<div class="pru-header"><div class="pru-logo">FINTECH COMPUTE TOOLKIT<span>.</span></div><div class="pru-tag">Agent-Only Protected View</div></div>', unsafe_allow_html=True)
+    st.components.v1.iframe(src="https://github.io", height=850, scrolling=True)

@@ -86,7 +86,7 @@ with col_logo:
     st.markdown('<div class="pru-header"><div class="pru-logo-text">PRUDENTIAL <span>Financial Advisers</span></div></div>', unsafe_allow_html=True)
 with col_logo_img:
     # Dynamically calling your repository's native file image to avoid dead external links
-    st.image("logo.png", width=120)
+   st.image("https://unsplash.com", width=80, caption=None)
 
 st.markdown("""
 <div class="crimson-menu">

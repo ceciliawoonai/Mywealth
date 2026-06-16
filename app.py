@@ -124,7 +124,7 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
         <div class="sakazuki-p">Cecilia is not your traditional financial advisor. She spent over a decade as a high-level global marketing strategist and e-commerce head managing massive corporate profit and loss statements (P&Ls) and multi-city international rollouts for market giants like <b>Wacom, Nokia, Honeywell, and L&L</b>. Holding a BA in Economics & Philosophy from NUS paired with an advanced Level 3 FinTech Developer certification (Python, AI, Analytics) from the NUS School of Computing, she synthesizes human behavioral data with unfeeling mathematical safety nets. She diagnoses emerging macro liabilities inside a human lifespan long before they cross into the public ledger.</div>
     </div>
 </div>
-    # =========================================================================
+        # =========================================================================
     # 🕹️ IMMERSIVE PHYSICS CANVAS NODE (THE 50 LIVESTREAM SPHERES MATRIX)
     # =========================================================================
     bubble_data_payload = [
@@ -147,7 +147,7 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
         {"id": 33, "label": "UX Designer", "sec": "Tech"}, {"id": 34, "label": "Photojournalist", "sec": "Tech"},
         {"id": 35, "label": "DevOps Engineer", "sec": "Tech"}, {"id": 36, "label": "Data Scientist", "sec": "Tech"},
         {"id": 37, "label": "Audio Engineer", "sec": "Tech"}, {"id": 38, "label": "Media Creator", "sec": "Tech"},
-        {"id": 39, "label": "Biomed Tech", "sec": "Tech"}, {"id": 40, "label": "Cloud Lead", "sec": "Tech"},
+        {"id": 39, "box": "Biomed Tech", "label": "Biomed Tech", "sec": "Tech"}, {"id": 40, "label": "Cloud Lead", "sec": "Tech"},
         {"id": 41, "label": "Hawker Legend", "sec": "Biz"}, {"id": 42, "label": "Hotel GM", "sec": "Biz"},
         {"id": 43, "label": "Artisan Barista", "sec": "Biz"}, {"id": 44, "label": "Retail Lead", "sec": "Biz"},
         {"id": 45, "label": "Cabin Crew", "sec": "Biz"}, {"id": 46, "label": "Compliance Officer", "sec": "Biz"},
@@ -155,16 +155,19 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
         {"id": 49, "label": "Agri Farmer", "sec": "Biz"}, {"id": 50, "label": "Art Curator", "sec": "Biz"}
     ]
 
-    canvas_html_matrix = """
-    <div class="sakazuki-row" style="padding-left:0; padding-right:0;">
-        <div class="sakazuki-left-label">The Collective</div>
-        <div class="sakazuki-right-content">
-            <div class="sakazuki-h3">The Lives We Protect</div>
-            <div class="sakazuki-p" style="margin-bottom:25px;">Hover your cursor across the matrix container mesh below. Every structural profession driving Singapore's infrastructure deserves customized clinical income shielding thresholds against unexpected lifespan tragedies.</div>
-        </div>
+    st.markdown("""
+<div class="sakazuki-row" style="padding-left:0; padding-right:0;">
+    <div class="sakazuki-left-label">The Collective</div>
+    <div class="sakazuki-right-content">
+        <div class="sakazuki-h3">The Lives We Protect</div>
+        <div class="sakazuki-p" style="margin-bottom:25px;">Hover your cursor across the matrix container mesh below. Every structural profession driving Singapore's infrastructure deserves customized clinical income shielding thresholds against unexpected lifespan tragedies.</div>
     </div>
-    
-    <div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px; width:100%%; position:relative; min-height:460px; overflow:hidden;">
+</div>
+""", unsafe_allow_html=True)
+
+    # Raw literal formatting protects JavaScript parameters from clashing with Python compilation rules
+    canvas_html_matrix = r"""
+    <div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px; width:100%; position:relative; min-height:460px; overflow:hidden;">
         <div id="matrix-ticker" style="font-family:'Courier New', monospace; font-size:12px; color:#FF4D61; margin-bottom:15px; min-height:18px;">[SYSTEM READY] Explore community nodes matrix telemetry...</div>
         <div id="canvas-mount-node" style="display:flex; justify-content:center;"></div>
     </div>
@@ -205,15 +208,14 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
         function dragstart(e, d) { if (!e.active) f_sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
         function dragged(e, d) { d.fx = e.x; d.fy = e.y; }
         function dragend(e, d) { if (!e.active) f_sim.alphaTarget(0); d.fx = null; d.fy = null; }
-    </script>
-    """.replace("{PAYLOAD_PLACEHOLDER}", str(bubble_data_payload))
-
+       </script>
+    """
+    
+    canvas_html_matrix = canvas_html_matrix.replace("{PAYLOAD_PLACEHOLDER}", str(bubble_data_payload))
     st.components.v1.html(canvas_html_matrix, height=620, scrolling=False)
 
-
-""", unsafe_allow_html=True)
-
     st.markdown('<div style="padding: 40px 0 0 45px;">', unsafe_allow_html=True)
+
     if st.button("Initialize Risk Analysis Sequence", type="primary"):
         st.success("Sequence authorized. Cecilia Woon's office will review your corporate capital coordinates shortly.")
     st.markdown('</div>', unsafe_allow_html=True)

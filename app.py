@@ -1,68 +1,99 @@
+import json
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
 st.set_page_config(page_title="Cecilia Woon | Private Wealth Console", layout="wide")
 
+# =========================================================================
+# 🏛️ GLOBAL RAW TEMPLATE ISOLATION FRAMEWORK (ZERO-INDENTATION HOISTING)
+# =========================================================================
+GLOBAL_BUBBLE_CANVAS_HTML = r"""
+<div class="sakazuki-row" style="padding-left:0; padding-right:0;">
+    <div class="sakazuki-left-label">The Collective</div>
+    <div class="sakazuki-right-content">
+        <div class="sakazuki-h3">The Lives We Protect</div>
+        <div class="sakazuki-p" style="margin-bottom:25px;">Hover your cursor across the matrix container mesh below. Every structural profession driving Singapore's infrastructure deserves customized clinical income shielding thresholds against unexpected lifespan tragedies.</div>
+    </div>
+</div>
+
+<div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px; width:100%; position:relative; min-height:460px; overflow:hidden;">
+    <div id="matrix-ticker" style="font-family:'Courier New', monospace; font-size:12px; color:#FF4D61; margin-bottom:15px; min-height:18px;">[SYSTEM READY] Explore community nodes matrix telemetry...</div>
+    <div id="canvas-mount-node" style="display:flex; justify-content:center;"></div>
+</div>
+
+<script src="https://d3js.org"></script>
+<script>
+    const nodes_payload = DATA_REPLACE_TOKEN;
+    const w = 900, h = 380;
+    
+    const svg = d3.select("#canvas-mount-node").append("svg").attr("width", w).attr("height", h);
+    
+    const f_sim = d3.forceSimulation(nodes_payload)
+        .force("charge", d3.forceManyBody().strength(15))
+        .force("center", d3.forceCenter(w / 2, h / 2))
+        .force("collision", d3.forceCollide().radius(40))
+        .on("tick", ticked);
+        
+    const element_nodes = svg.selectAll("g").data(nodes_payload).enter().append("g")
+        .call(d3.drag().on("start", dragstart).on("drag", dragged).on("end", dragend));
+        
+    element_nodes.append("circle").attr("r", 34)
+        .attr("fill", d => d.sec === "Med" ? "rgba(227,24,55,0.12)" : d.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.03)")
+        .attr("stroke", d => d.sec === "Med" ? "#E31837" : d.sec === "Tech" ? "#D4AF37" : "rgba(255,255,255,0.2)")
+        .attr("stroke-width", 1.5).style("cursor", "pointer")
+        .on("mouseover", function(event, d) {
+            d3.select(this).attr("stroke-width", 3).attr("fill", "rgba(227,24,55,0.25)");
+            document.getElementById("matrix-ticker").innerText = `\u26A1 [NODE RE-INSULATED] Sector: ${d.sec} // Profession: ${d.label} -> Mapped into Cecilia Woon's risk insulation protection loops.`;
+        })
+        .on("mouseout", function(event, d) {
+            d3.select(this).attr("stroke-width", 1.5).attr("fill", d.sec === "Med" ? "rgba(227,24,55,0.12)" : d.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.03)");
+        });
+        
+    element_nodes.append("text").text(d => d.label)
+        .attr("text-anchor", "middle").attr("dy", ".3em").attr("fill", "#FFFFFF")
+        .style("font-size", "10px").style("pointer-events", "none").style("font-family", "sans-serif");
+        
+    function ticked() { element_nodes.attr("transform", d => `translate(${Math.max(45, Math.min(w - 45, d.x))}, ${Math.max(45, Math.min(h - 45, d.y))})`); }
+    function dragstart(e, d) { if (!e.active) f_sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
+    function dragged(e, d) { d.fx = e.x; d.fy = e.y; }
+    function dragend(e, d) { if (!e.active) f_sim.alphaTarget(0); d.fx = null; d.fy = null; }
+</script>
+"""
+
 # --- ELVALABS & SAKAZUKI INSPIRED ULTRA-DARK SYSTEM DESIGN STYLES ---
 st.markdown("""
 <style>
-    /* Global Immersive Void Canvas Background */
-    html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
-        background-color: #050507 !important;
-        color: #FFFFFF !important;
-        font-family: 'Inter', sans-serif;
-    }
-    
-    /* Collapsing default Streamlit padding blocks */
+    html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] { background-color: #050507 !important; color: #FFFFFF !important; font-family: 'Inter', sans-serif; }
     [data-testid="stVerticalBlock"] { gap: 0rem !important; }
-    
-    /* Top Logo Header Frame Alignment */
     .brand-container { padding: 40px 45px 10px 45px; background: #050507; }
     .brand-text { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.5px; text-transform: uppercase; }
     .brand-text span { color: #E31837; font-size: 11px; font-family: 'Inter', sans-serif; font-weight: bold; letter-spacing: 2px; margin-left: 12px; vertical-align: middle; }
     
-    /* Sleek Kinetic Horizontal Navigation Strip */
-    .kinetic-nav { 
-        display: flex; 
-        justify-content: flex-start; 
-        gap: 3.5rem; 
-        padding: 18px 45px; 
-        font-size: 12px; 
-        font-weight: 600; 
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        margin-bottom: 40px;
-    }
+    .kinetic-nav { display: flex; justify-content: flex-start; gap: 3.5rem; padding: 18px 45px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 40px; }
     .kinetic-nav span { cursor: pointer; color: #8A8A93; transition: all 0.4s ease; }
     .kinetic-nav span:hover { color: #FFFFFF; }
     .active-nav-node { color: #E31837 !important; font-weight: bold; }
 
-    /* Sakazuki Premium Editorial Containers */
     .sakazuki-hero { padding: 40px 45px; margin-bottom: 20px; }
     .sakazuki-tag { color: #8A8A93; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
     .sakazuki-h1 { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; line-height: 1.2; margin-bottom: 15px; letter-spacing: -0.5px; }
     .sakazuki-h1 span { color: #E31837; }
     
-    /* Split Content Grid Rows */
     .sakazuki-row { display: flex; border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 40px 45px; }
     .sakazuki-left-label { flex: 0.4; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #8A8A93; font-weight: bold; }
     .sakazuki-right-content { flex: 1.6; }
     .sakazuki-h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; margin-bottom: 15px; color: #FFFFFF; }
     .sakazuki-p { font-size: 16px; color: #A0A0A5; line-height: 1.7; max-width: 850px; }
 
-    /* Technical Knowledge Vault Cards */
     .reyou-panel-header { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; }
     .reyou-panel-subtitle { font-size: 16px; color: #8A8A93; margin-bottom: 40px; line-height: 1.6; max-width: 700px; }
-    
     .reyou-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 35px 30px; height: 100%; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
     .reyou-card:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(227, 24, 55, 0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
     .reyou-card-num { font-size: 12px; font-weight: bold; color: #E31837; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
     .reyou-card-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: bold; color: #FFFFFF; margin-bottom: 12px; }
     .reyou-card-desc { font-size: 14px; color: #8A8A93; line-height: 1.6; }
 
-    /* Interactive Compute Sliders Console Boxes */
     .terminal-panel { background: #0B0B0E; border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 16px; padding: 35px; margin-bottom: 30px; }
     .terminal-header { font-size: 11px; text-transform: uppercase; font-weight: bold; color: #66666D; letter-spacing: 1.5px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
     .terminal-dot { width: 6px; height: 6px; background: #FF4D61; border-radius: 50%; box-shadow: 0 0 10px #FF4D61; }
@@ -71,9 +102,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# =========================================================================
-# 🏛️ TEXT HEADER ALIGNMENT
-# =========================================================================
 st.markdown('<div class="brand-container"><div class="brand-text">CECILIA WOON <span>Private Wealth Advisory</span></div></div>', unsafe_allow_html=True)
 
 # --- WORKSPACE CONTROL SELECTION NAVIGATION SIDEBAR ---
@@ -102,9 +130,6 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 if navigation_selection == "🌐 Clinical P&L Philosophy":
-    # =========================================================================
-    # SAKAZUKI NARRATIVE PROFILE 
-    # =========================================================================
     st.markdown("""
 <div class="sakazuki-hero">
     <div class="sakazuki-tag">Risk Mitigation Practice</div>
@@ -124,9 +149,8 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
         <div class="sakazuki-p">Cecilia is not your traditional financial advisor. She spent over a decade as a high-level global marketing strategist and e-commerce head managing massive corporate profit and loss statements (P&Ls) and multi-city international rollouts for market giants like <b>Wacom, Nokia, Honeywell, and L&L</b>. Holding a BA in Economics & Philosophy from NUS paired with an advanced Level 3 FinTech Developer certification (Python, AI, Analytics) from the NUS School of Computing, she synthesizes human behavioral data with unfeeling mathematical safety nets. She diagnoses emerging macro liabilities inside a human lifespan long before they cross into the public ledger.</div>
     </div>
 </div>
-       # =========================================================================
-    # 🕹️ IMMERSIVE PHYSICS CANVAS NODE (THE 50 LIVESTREAM SPHERES MATRIX)
-    # =========================================================================
+""", unsafe_allow_html=True)
+
     bubble_data_payload = [
         {"id": 1, "label": "Cardiologist", "sec": "Med"}, {"id": 2, "label": "Staff Nurse", "sec": "Med"},
         {"id": 3, "label": "Radiographer", "sec": "Med"}, {"id": 4, "label": "Physio", "sec": "Med"},
@@ -155,72 +179,14 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
         {"id": 49, "label": "Agri Farmer", "sec": "Biz"}, {"id": 50, "label": "Art Curator", "sec": "Biz"}
     ]
 
-    st.markdown("""
-<div class="sakazuki-row" style="padding-left:0; padding-right:0;">
-    <div class="sakazuki-left-label">The Collective</div>
-    <div class="sakazuki-right-content">
-        <div class="sakazuki-h3">The Lives We Protect</div>
-        <div class="sakazuki-p" style="margin-bottom:25px;">Hover your cursor across the matrix container mesh below. Every structural profession driving Singapore's infrastructure deserves customized clinical income shielding thresholds against unexpected lifespan tragedies.</div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+    nodes_json_payload = json.dumps(bubble_data_payload)
+    compiled_canvas_html = GLOBAL_BUBBLE_CANVAS_HTML.replace("DATA_REPLACE_TOKEN", nodes_json_payload)
+    st.components.v1.html(compiled_canvas_html, height=620, scrolling=False)
 
-    # Dynamic JSON parsing instead of raw string substitution guarantees browser delivery
-    import json
-    nodes_json = json.dumps(bubble_data_payload)
-
-    canvas_html_raw = r"""
-    <div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px; width:100%; position:relative; min-height:460px; overflow:hidden;">
-        <div id="matrix-ticker" style="font-family:'Courier New', monospace; font-size:12px; color:#FF4D61; margin-bottom:15px; min-height:18px;">[SYSTEM READY] Explore community nodes matrix telemetry...</div>
-        <div id="canvas-mount-node" style="display:flex; justify-content:center;"></div>
-    </div>
-    
-    <script src="https://d3js.org"></script>
-    <script>
-        const nodes_payload = DATA_REPLACE_TOKEN;
-        const w = 900, h = 380;
-        
-        const svg = d3.select("#canvas-mount-node").append("svg").attr("width", w).attr("height", h);
-        
-        const f_sim = d3.forceSimulation(nodes_payload)
-            .force("charge", d3.forceManyBody().strength(15))
-            .force("center", d3.forceCenter(w / 2, h / 2))
-            .force("collision", d3.forceCollide().radius(40))
-            .on("tick", ticked);
-            
-        const element_nodes = svg.selectAll("g").data(nodes_payload).enter().append("g")
-            .call(d3.drag().on("start", dragstart).on("drag", dragged).on("end", dragend));
-            
-        element_nodes.append("circle").attr("r", 34)
-            .attr("fill", d => d.sec === "Med" ? "rgba(227,24,55,0.12)" : d.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.03)")
-            .attr("stroke", d => d.sec === "Med" ? "#E31837" : d.sec === "Tech" ? "#D4AF37" : "rgba(255,255,255,0.2)")
-            .attr("stroke-width", 1.5).style("cursor", "pointer")
-            .on("mouseover", function(event, d) {
-                d3.select(this).attr("stroke-width", 3).attr("fill", "rgba(227,24,55,0.25)");
-                document.getElementById("matrix-ticker").innerText = `⚡ [NODE RE-INSULATED] Sector: ${d.sec} // Profession: ${d.label} -> Mapped into Cecilia Woon's risk insulation protection loops.`;
-            })
-            .on("mouseout", function(event, d) {
-                d3.select(this).attr("stroke-width", 1.5).attr("fill", d.sec === "Med" ? "rgba(227,24,55,0.12)" : d.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.03)");
-            });
-            
-        element_nodes.append("text").text(d => d.label)
-            .attr("text-anchor", "middle").attr("dy", ".3em").attr("fill", "#FFFFFF")
-            .style("font-size", "10px").style("pointer-events", "none").style("font-family", "sans-serif");
-            
-        function ticked() { element_nodes.attr("transform", d => `translate(${Math.max(45, Math.min(w - 45, d.x))}, ${Math.max(45, Math.min(h - 45, d.y))})`); }
-        function dragstart(e, d) { if (!e.active) f_sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
-        function dragged(e, d) { d.fx = e.x; d.fy = e.y; }
-        function dragend(e, d) { if (!e.active) f_sim.alphaTarget(0); d.fx = null; d.fy = null; }
-    </script>
-    """.replace("DATA_REPLACE_TOKEN", nodes_json)
-
-    st.components.v1.html(canvas_html_raw, height=520, scrolling=False)
-
-
+    st.markdown('<div style="padding: 20px 0 0 45px;">', unsafe_allow_html=True)
     if st.button("Initialize Risk Analysis Sequence", type="primary"):
         st.success("Sequence authorized. Cecilia Woon's office will review your corporate capital coordinates shortly.")
     st.markdown('</div>', unsafe_allow_html=True)
-
 elif navigation_selection == "📚 Research & Education Vault":
     st.markdown('<div style="padding: 0 45px 40px 45px;">', unsafe_allow_html=True)
     st.markdown('<div class="reyou-panel-header">Treat the Exposure, Not Just the Premium</div>', unsafe_allow_html=True)
@@ -268,7 +234,6 @@ elif navigation_selection == "🎯 The Rorschach Protocol (Leads)":
     
     st.markdown('<div style="margin-top:20px;"></div>', unsafe_allow_html=True)
     st.markdown('### Secure Your Strategy Coordinates')
-    
     col_lead1, col_lead2, col_lead3 = st.columns(3)
     with col_lead1: lead_name = st.text_input("Full Professional Name")
     with col_lead2: lead_email = st.text_input("Verified Email Coordinate")

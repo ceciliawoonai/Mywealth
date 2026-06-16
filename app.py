@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-st.set_page_config(page_title="Prudential Financial Advisers | Portal Hub", layout="wide")
+st.set_page_config(page_title="Cecilia Woon | Private Wealth Console", layout="wide")
 
 # --- HIGH-AVAILABILITY LAYOUT DESIGN STYLES ---
 st.markdown("""
@@ -69,7 +69,7 @@ st.markdown("""
     .pru-card { background: #ffffff; border: 1px solid #eaeaea; border-radius: 8px; padding: 30px 25px; box-shadow: 0 6px 18px rgba(0,0,0,0.01); height: 100%; transition: transform 0.2s; }
     .pru-card:hover { transform: translateY(-3px); }
     .pru-card-img { width: 100%; height: 160px; border-radius: 6px; object-fit: cover; margin-bottom: 18px; }
-    .pru-card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: bold; color: #111111; margin-bottom: 10px; }
+    .pru-card-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: bold; color: #111111; margin-bottom: 10px; line-height: 1.3; }
     .pru-card-text { font-size: 13.5px; color: #666666; line-height: 1.5; }
     
     /* Timeline Journey Components */
@@ -83,42 +83,42 @@ st.markdown("""
 # =========================================================================
 col_logo, col_logo_img = st.columns([4, 1])
 with col_logo:
-    st.markdown('<div class="pru-header"><div class="pru-logo-text">PRUDENTIAL <span>Financial Advisers</span></div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="pru-header" style="border:none; padding-left:0; padding-top:10px;"><div class="pru-logo-text">CECILIA WOON <span>Private Wealth Advisory</span></div></div>', unsafe_allow_html=True)
 with col_logo_img:
-    # Dynamically calling your repository's native file image to avoid dead external links
-   st.image("https://unsplash.com", width=80, caption=None)
+    # Dynamically pulling your beautifully created logo from the repository folder
+    st.image("Images/logo.jpg", width=130)
 
 st.markdown("""
 <div class="crimson-menu">
-    <span>What We Offer</span>
-    <span>Our Story</span>
-    <span>Join the Team</span>
-    <span>Support</span>
-    <span>Get in Touch</span>
+    <span>Bespoke Asset Solutions</span>
+    <span>Our Practice Story</span>
+    <span>Private Client Office</span>
+    <span>HNW Strategic Support</span>
+    <span>Request Consultation</span>
 </div>
 """, unsafe_allow_html=True)
 
 # --- PANEL SELECTION SYSTEM ---
 st.sidebar.markdown('**System Navigator**')
 navigation_selection = st.sidebar.radio("Go To Section Workspace:", [
-    "🌐 Client Information Portal",
-    "📊 Live Interactive CPF Engine",
+    "🌐 Private Client Portal Home",
+    "📊 Live Interactive 2026 CPF Engine",
     "🔒 Private Agent Computational View"
 ])
 
-if navigation_selection == "🌐 Client Information Portal":
+if navigation_selection == "🌐 Private Client Portal Home":
     # 1. Premium Interactive Split Hero Section
     st.markdown("""
     <div class="hero-container">
         <div class="hero-text-block">
-            <div class="hero-h1">Helping You <span>Get The<br>Most Out of Life</span></div>
-            <div class="hero-p">No matter what you hope to achieve in the future, we can curate personalized wealth solutions to meet your needs at various stages of your life.</div>
+            <div class="hero-h1">Bespoke Wealth Architecture for <span>Singapore's Discerning Families</span></div>
+            <div class="hero-p">Providing discrete, holistic, and values-driven capital preservation, global portfolio optimization, and multi-generational legacy distribution roadmaps. Based on over 15 years of industry advisory excellence.</div>
         </div>
         <div class="hero-image-block"></div>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown('<div class="sub-section-header">Planning a <span>Brighter Future</span> for you</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-section-header">Planning a <span>Brighter Legacy</span> for you</div>', unsafe_allow_html=True)
     
     # 2. Triple Value Service Grid Cards Matrix
     col_c1, col_c2, col_c3 = st.columns(3, gap="large")
@@ -126,36 +126,36 @@ if navigation_selection == "🌐 Client Information Portal":
         st.markdown("""
         <div class="pru-card">
             <img class="pru-card-img" src="https://unsplash.com">
-            <div class="pru-card-title">A Personal Plan to Achieve Your Goals</div>
-            <div class="pru-card-text">We provide personalized advice with tailored solutions and products to help you achieve your financial aspirations.</div>
+            <div class="pru-card-title">Bespoke Asset Allocation & Capital Growth</div>
+            <div class="pru-card-text">Constructing resilient, cross-border global configurations engineered to maximize capital compounding efficiency while protecting against macro inflationary volatility.</div>
         </div>
         """, unsafe_allow_html=True)
     with col_c2:
         st.markdown("""
         <div class="pru-card">
             <img class="pru-card-img" src="https://unsplash.com">
-            <div class="pru-card-title">An Expert On Your Side</div>
-            <div class="pru-card-text">Our team is made up of qualified and well-trained Wealth Managers who are here to plan beyond your everyday needs.</div>
+            <div class="pru-card-title">Strategic State Infrastructure Optimization</div>
+            <div class="pru-card-text">Algorithmic alignment of your 2026 CPF sum provisions (BRS/FRS/ERS threshold boundaries) mapped to uncover maximal ordinary account liquidity options.</div>
         </div>
         """, unsafe_allow_html=True)
     with col_c3:
         st.markdown("""
         <div class="pru-card">
             <img class="pru-card-img" src="https://unsplash.com">
-            <div class="pru-card-title">We Offer More Than Just Insurance</div>
-            <div class="pru-card-text">We provide services beyond insurance, from protecting your legacy to estate and tax planning, and more wealth management services to fit your needs.</div>
+            <div class="pru-card-title">Liquidity Isolation & Family Continuity</div>
+            <div class="pru-card-text">Advanced asset isolation frameworks, trust orchestrations, and corporate succession frameworks safeguarding tax-efficient multigenerational transfers.</div>
         </div>
         """, unsafe_allow_html=True)
 
     # 3. Advisory Framework Roadmap
     st.markdown('<p class="section-title">Our Advisory Framework</p>', unsafe_allow_html=True)
-    for step in ["1. Strategic Intake & Discovery Consultation", "2. Portfolio Optimization Blueprint Modeling", "3. Periodic Asset Allocation Calibration"]:
+    for step in ["1. Discrete Discovery & Capital Portfolio Evaluation", "2. Comprehensive Wealth Blueprint & Stress-Test Modeling", "3. Active Allocation Calibration & Legacy Maintenance"]:
         st.markdown(f'<div class="journey-step"><div class="journey-title">{step}</div></div>', unsafe_allow_html=True)
         
-    if st.button("Schedule Strategy Call", type="primary"): 
-        st.success("Consultation request logged.")
+    if st.button("Request Private Advisory Strategy Call", type="primary"): 
+        st.success("Your strategy request has been securely logged. Cecilia Woon's office will reach out shortly.")
 
-elif navigation_selection == "📊 Live Interactive CPF Engine":
+elif navigation_selection == "📊 Live Interactive 2026 CPF Engine":
     st.components.v1.iframe(src="https://smartcalculator.sg", height=850, scrolling=True)
 
 else:

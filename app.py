@@ -16,10 +16,11 @@ st.markdown("""
     
     /* Collapsing default Streamlit padding blocks */
     [data-testid="stVerticalBlock"] { gap: 0rem !important; }
-    [data-testid="stVerticalBlock"] > div:has(img) { margin-bottom: -15px !important; padding-bottom: 0px !important; }
     
     /* Top Logo Header Frame Alignment */
-    .brand-container { padding: 30px 45px 10px 45px; background: #050507; }
+    .brand-container { padding: 40px 45px 10px 45px; background: #050507; }
+    .brand-text { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.5px; text-transform: uppercase; }
+    .brand-text span { color: #E31837; font-size: 12px; font-family: 'Inter', sans-serif; font-weight: bold; letter-spacing: 2px; margin-left: 12px; vertical-align: middle; }
     
     /* Sleek Kinetic Horizontal Navigation Strip */
     .kinetic-nav { 
@@ -51,7 +52,7 @@ st.markdown("""
     .sakazuki-h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; margin-bottom: 15px; color: #FFFFFF; }
     .sakazuki-p { font-size: 16px; color: #A0A0A5; line-height: 1.7; max-width: 850px; }
 
-    /* Reyou-Inspired Structural Topic Cards Blueprint */
+    /* Technical Knowledge Vault Cards */
     .reyou-panel-header { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; }
     .reyou-panel-subtitle { font-size: 16px; color: #8A8A93; margin-bottom: 40px; line-height: 1.6; max-width: 700px; }
     
@@ -71,11 +72,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =========================================================================
-# 🏛️ REPLICATED LOGO BLOCK (NO GAP LAYOUT)
+# 🏛️ TEXT-ONLY MINIMAL HEADER NAVIGATION (LOGO ENTIRELY REMOVED)
 # =========================================================================
-st.markdown('<div class="brand-container">', unsafe_allow_html=True)
-st.image("Images/logo.jpg", width=250)
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('<div class="brand-container"><div class="brand-text">CECILIA WOON <span>Private Wealth Advisory</span></div></div>', unsafe_allow_html=True)
 
 # --- WORKSPACE CONTROL SELECTION NAVIGATION SIDEBAR ---
 st.sidebar.markdown('**System Navigator**')
@@ -103,17 +102,11 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 if navigation_selection == "🌐 Clinical P&L Philosophy":
-    # =========================================================================
-    # SAKAZUKI NARRATIVE PROFILE (COMPLETELY RE-WRITTEN WITH CORE RAW DATA)
-    # =========================================================================
     st.markdown("""
     <div class="sakazuki-hero">
         <div class="sakazuki-tag">Risk Mitigation Practice</div>
         <div class="sakazuki-h1">Applying Corporate P&L Principles<br>to <span>Human Biology</span></div>
     </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
     <div class="sakazuki-row">
         <div class="sakazuki-left-label">The Blind Spot</div>
         <div class="sakazuki-right-content">
@@ -143,20 +136,17 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
     st.markdown('</div>', unsafe_allow_html=True)
 
 elif navigation_selection == "📚 Research & Education Vault":
-    # =========================================================================
-    # REYOU-INSPIRED TECHNICAL KNOWLEDGE VAULT GRID (RESEARCH TOPICS)
-    # =========================================================================
     st.markdown('<div style="padding: 0 45px 40px 45px;">', unsafe_allow_html=True)
     st.markdown('<div class="reyou-panel-header">Treat the Exposure, Not Just the Premium</div>', unsafe_allow_html=True)
-    st.markdown('<div class="reyou-panel-subtitle">Explore our rigorous, research-backed advisory briefs authored by Cecilia Woon. Designed to insulate portfolios from structural lifecycle leakages.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="reyou-panel-subtitle">Explore our rigorous, research-backed advisory briefs. Designed to insulate high-net-worth portfolios from structural leakages and hidden policy traps.</div>', unsafe_allow_html=True)
     
     row1_c1, row1_c2, row1_c3 = st.columns(3, gap="large")
     with row1_c1:
-        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 01</div><div class="reyou-card-title">How to Avoid Being Oversold</div><div class="reyou-card-desc">Stripping away product-pushing pitches to isolate pure, capital-efficient risk insulation values.</div></div>""", unsafe_allow_html=True)
+        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 01</div><div class="reyou-card-title">How to Avoid Being Oversold</div><div class="reyou-card-desc">Stripping away commissions-driven insurance pitches to isolate pure capital-efficient protection values tailored to asset bounds.</div></div>""", unsafe_allow_html=True)
     with row1_c2:
-        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 02</div><div class="reyou-card-title">Streamline Your Protection Plan</div><div class="reyou-card-desc">Consolidating overlapping policy layers to minimize overhead drag on your investment capital.</div></div>""", unsafe_allow_html=True)
+        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 02</div><div class="reyou-card-title">Streamline Your Protection Plan</div><div class="reyou-card-desc">Consolidating overlapping policy layers to reduce drag and optimize premium cashflow overheads significantly.</div></div>""", unsafe_allow_html=True)
     with row1_c3:
-        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 03</div><div class="reyou-card-title">The Hospital Income Matrix</div><div class="reyou-card-desc">Unpacking data-heavy structures that replace daily transactional income losses during preventative routine clinical maintenance.</div></div>""", unsafe_allow_html=True)
+        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 03</div><div class="reyou-card-title">Choosing a High-Utility Accident Plan</div><div class="reyou-card-desc">Evaluating high-tier disability payouts, workspace trauma recovery terms, and mobility adjustments over generic entry products.</div></div>""", unsafe_allow_html=True)
 
     st.markdown('<div style="margin-top:30px;"></div>', unsafe_allow_html=True)
     row2_c1, row2_c2, row2_c3 = st.columns(3, gap="large")
@@ -168,9 +158,6 @@ elif navigation_selection == "📚 Research & Education Vault":
         st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 06</div><div class="reyou-card-title">Pre-Crisis Resiliency Protocol</div><div class="reyou-card-desc">A unified tactical emergency sequence linking corporate legal standing, rapid cash buffers, and account authority overrides—ensuring your portfolio survives intact.</div></div>""", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 elif navigation_selection == "🎯 The Rorschach Protocol (Leads)":
-    # =========================================================================
-    # BEHAVIORAL FINANCE GAMIFIED LEAD GENERATION MODULE
-    # =========================================================================
     st.markdown('<div style="padding: 0 45px 40px 45px;">', unsafe_allow_html=True)
     st.markdown('<div class="reyou-panel-header">The Rorschach Wealth Protocol</div>', unsafe_allow_html=True)
     st.markdown('<div class="reyou-panel-subtitle">Most households realize they are under-insulated exactly five minutes too late. Select the abstract artifact block below that mirrors your financial subconscious right now.</div>', unsafe_allow_html=True)
@@ -212,9 +199,6 @@ elif navigation_selection == "🎯 The Rorschach Protocol (Leads)":
     st.markdown('</div>', unsafe_allow_html=True)
 
 elif navigation_selection == "📊 Live Interactive 2026 CPF Engine":
-    # =========================================================================
-    # DYNAMIC SOVEREIGN ENGINE MATH MATRIX
-    # =========================================================================
     st.markdown('<div style="padding: 0 45px; margin-bottom: 30px;"><h2 class="sakazuki-h1">Sovereign Matrix <span>2026</span></h2></div>', unsafe_allow_html=True)
     col_t1, col_t2 = st.columns([1, 1.2], gap="large")
     with col_t1:
@@ -245,8 +229,5 @@ elif navigation_selection == "📊 Live Interactive 2026 CPF Engine":
         st.markdown('</div>', unsafe_allow_html=True)
 
 else:
-    # =========================================================================
-    # PROTECTED VIEW FINTECH MATRIX AGENT GATEWAY
-    # =========================================================================
     st.markdown('<div style="padding: 0 45px; margin-bottom: 30px;"><h2 class="sakazuki-h1">Agent Private <span>Computational Analytics</span></h2></div>', unsafe_allow_html=True)
     st.components.v1.iframe(src="https://github.io", height=850, scrolling=True)

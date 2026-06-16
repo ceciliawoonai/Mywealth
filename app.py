@@ -1,16 +1,5 @@
-import subprocess
-import sys
-
-# --- AUTOMATIC BACKGROUND PACKAGE INSTALLER MATRIX ---
-# Bypasses Streamlit folder alignment and lockfile conflicts completely
-try:
-    import pandas as pd
-    import plotly.graph_objects as go
-except ModuleNotFoundError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "pandas", "plotly"])
-    import pandas as pd
-    import plotly.graph_objects as go
-
+import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
 
 st.set_page_config(page_title="Prudential Financial Advisers | Portfolio Hub", layout="wide")
@@ -18,13 +7,11 @@ st.set_page_config(page_title="Prudential Financial Advisers | Portfolio Hub", l
 # --- OFFICIAL CORPORATE PFA DESIGN STYLE CODES ---
 st.markdown("""
 <style>
-    /* PFA Brand Banner Navbar */
     .pru-header { background-color: #ffffff; padding: 18px 45px; border-bottom: 3px solid #E31837; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0px; }
     .pru-logo { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: #111111; letter-spacing: -0.5px; }
     .pru-logo span { color: #E31837; }
     .pru-tag { font-size: 11px; text-transform: uppercase; font-weight: bold; color: #555555; letter-spacing: 2px; }
     
-    /* Core Hero Banner Component Layout */
     .hero-bg { 
         background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.65)), url('https://unsplash.com') center center/cover no-repeat;
         color: white; padding: 90px 50px; border-radius: 0 0 2.5rem 2.5rem; margin-bottom: 45px; box-shadow: inset 0 0 120px rgba(0,0,0,0.6);
@@ -32,16 +19,13 @@ st.markdown("""
     .hero-h1 { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 700; margin-bottom: 15px; color: #ffffff; line-height: 1.2; }
     .hero-p { font-size: 18px; max-width: 750px; color: #e0e0e0; margin-bottom: 0px; line-height: 1.6; }
     
-    /* Segment Framework Labels */
     .section-title { font-size: 13px; color: #E31837; text-transform: uppercase; font-weight: bold; margin-top: 40px; margin-bottom: 15px; letter-spacing: 1px; }
     .sub-section-header { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: #111111; margin-bottom: 25px; }
     
-    /* Standard PFA Cards Template Grid */
     .pru-card { background: #ffffff; border: 1px solid #eaeaea; border-radius: 8px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.01); height: 100%; margin-bottom: 20px; }
     .pru-card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: bold; color: #111111; margin-bottom: 10px; }
     .pru-card-text { font-size: 14px; color: #555555; line-height: 1.5; }
     
-    /* Timeline Journey Components */
     .journey-step { background: #fdfdfd; border-left: 3px solid #E31837; padding: 15px 20px; margin-bottom: 15px; border-radius: 0 6px 6px 0; }
     .journey-title { font-size: 15px; font-weight: bold; color: #111111; margin-bottom: 4px; }
 </style>

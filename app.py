@@ -232,12 +232,11 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
     <div class="sakazuki-left-label">The Blind Spot</div>
     <div class="sakazuki-right-content">
         <div class="sakazuki-h3">Who pays your rent while you try to stay healthy?</div>
-        <div class="sakazuki-p">Statistically, if you live to be 70 years old, you are likely to spend <b>800 days</b>—more than two full years—lying in a hospital bed. Not because you are dying, but because modern medicine has shifted to aggressive, proactive preventative maintenance (diabetes tracking, cardiovascular calibrations, intensive rehabilitation). Standard insurance pays the clinic to fix the body, but it ignores the massive fallout to your life. When the human factory shuts down for routine asphalt maintenance, your personal cashflow commerce shouldn't collapse.</div>
+        <div class="sakazuki-p">Statistically, if you live to be 70 years old, you are likely to spend <b>800 days</b> - more than two full years - lying in a hospital bed. Not because you are dying, but because modern medicine has shifted to aggressive, proactive preventative maintenance (diabetes tracking, cardiovascular calibrations, intensive rehabilitation). Standard insurance pays the clinic to fix the body, but it ignores the massive fallout to your life. When the human factory shuts down for routine asphalt maintenance, your personal cashflow commerce shouldn't collapse.</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-    """, unsafe_allow_html=True)
     st.markdown("""
     <div class="sakazuki-row">
         <div class="sakazuki-left-label">The Strategist</div>

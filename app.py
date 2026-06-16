@@ -124,13 +124,94 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
         <div class="sakazuki-p">Cecilia is not your traditional financial advisor. She spent over a decade as a high-level global marketing strategist and e-commerce head managing massive corporate profit and loss statements (P&Ls) and multi-city international rollouts for market giants like <b>Wacom, Nokia, Honeywell, and L&L</b>. Holding a BA in Economics & Philosophy from NUS paired with an advanced Level 3 FinTech Developer certification (Python, AI, Analytics) from the NUS School of Computing, she synthesizes human behavioral data with unfeeling mathematical safety nets. She diagnoses emerging macro liabilities inside a human lifespan long before they cross into the public ledger.</div>
     </div>
 </div>
+    # =========================================================================
+    # 🕹️ IMMERSIVE PHYSICS CANVAS NODE (THE 50 LIVESTREAM SPHERES MATRIX)
+    # =========================================================================
+    st.markdown("""
 <div class="sakazuki-row">
-    <div class="sakazuki-left-label">The Mosaic</div>
+    <div class="sakazuki-left-label">The Collective</div>
     <div class="sakazuki-right-content">
         <div class="sakazuki-h3">The Lives We Protect</div>
-        <div class="sakazuki-p">From frontline nurses and specialist cardiologists to transport logistics leads, educators, and infrastructure operations managers. Every societal career path requires corporate-grade income insulation layers. (Immersive interactive 50-occupation bubble canvas framework computing in background console).</div>
+        <div class="sakazuki-p" style="margin-bottom:25px;">Hover your cursor across the matrix container mesh below. Every structural profession driving Singapore's infrastructure deserves customized clinical income shielding thresholds against unexpected lifespan tragedies.</div>
     </div>
 </div>
+""", unsafe_allow_html=True)
+
+    bubble_data_payload = [
+        {"id": 1, "label": "Cardiologist", "sec": "Med"}, {"id": 2, "label": "Staff Nurse", "sec": "Med"},
+        {"id": 3, "label": "Radiographer", "sec": "Med"}, {"id": 4, "label": "Physio", "sec": "Med"},
+        {"id": 5, "label": "Scientist", "sec": "Med"}, {"id": 6, "label": "Elderly Care", "sec": "Med"},
+        {"id": 7, "label": "Vet Surgeon", "sec": "Med"}, {"id": 8, "label": "Pharmacist", "sec": "Med"},
+        {"id": 9, "label": "Dentist", "sec": "Med"}, {"id": 10, "label": "Therapist", "sec": "Med"},
+        {"id": 11, "label": "Teacher", "sec": "Edu"}, {"id": 12, "label": "Professor", "sec": "Edu"},
+        {"id": 13, "label": "SpecEd Coach", "sec": "Edu"}, {"id": 14, "label": "Policy Lead", "sec": "Edu"},
+        {"id": 15, "label": "Lawyer", "sec": "Edu"}, {"id": 16, "label": "SCDF Officer", "sec": "Edu"},
+        {"id": 17, "label": "Urban Planner", "sec": "Edu"}, {"id": 18, "label": "Social Worker", "sec": "Edu"},
+        {"id": 19, "label": "Archivist", "sec": "Edu"}, {"id": 20, "label": "Eco Officer", "sec": "Edu"},
+        {"id": 21, "label": "Cleaner Hero", "sec": "Ops"}, {"id": 22, "label": "Bus Captain", "sec": "Ops"},
+        {"id": 23, "label": "Port Operator", "sec": "Ops"}, {"id": 24, "label": "Logistics Sup", "sec": "Ops"},
+        {"id": 25, "label": "Security SCDF", "sec": "Ops"}, {"id": 26, "label": "Lift Tech", "sec": "Ops"},
+        {"id": 27, "label": "Delivery Rider", "sec": "Ops"}, {"id": 28, "label": "Project Manager", "sec": "Ops"},
+        {"id": 29, "label": "Air Traffic", "sec": "Ops"}, {"id": 30, "label": "Waste Engineer", "sec": "Ops"},
+        {"id": 31, "label": "AI Product Manager", "sec": "Tech"}, {"id": 32, "label": "Cyber Architect", "sec": "Tech"},
+        {"id": 33, "label": "UX Designer", "sec": "Tech"}, {"id": 34, "label": "Photojournalist", "sec": "Tech"},
+        {"id": 35, "label": "DevOps Engineer", "sec": "Tech"}, {"id": 36, "label": "Data Scientist", "sec": "Tech"},
+        {"id": 37, "label": "Audio Engineer", "sec": "Tech"}, {"id": 38, "label": "Media Creator", "sec": "Tech"},
+        {"id": 39, "label": "Biomed Tech", "sec": "Tech"}, {"id": 40, "label": "Cloud Lead", "sec": "Tech"},
+        {"id": 41, "label": "Hawker Legend", "sec": "Biz"}, {"id": 42, "label": "Hotel GM", "sec": "Biz"},
+        {"id": 43, "label": "Artisan Barista", "sec": "Biz"}, {"id": 44, "label": "Retail Lead", "sec": "Biz"},
+        {"id": 45, "label": "Cabin Crew", "sec": "Biz"}, {"id": 46, "label": "Compliance Officer", "sec": "Biz"},
+        {"id": 47, "label": "HR Specialist", "sec": "Biz"}, {"id": 48, "label": "Gym Coach", "sec": "Biz"},
+        {"id": 49, "label": "Agri Farmer", "sec": "Biz"}, {"id": 50, "label": "Art Curator", "sec": "Biz"}
+    ]
+
+    canvas_html_matrix = """
+    <div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px; width:100%; position:relative; min-height:460px; overflow:hidden;">
+        <div id="matrix-ticker" style="font-family:'Courier New', monospace; font-size:12px; color:#FF4D61; margin-bottom:15px; min-height:18px;">[SYSTEM READY] Explore community nodes matrix telemetry...</div>
+        <div id="canvas-mount-node" style="display:flex; justify-content:center;"></div>
+    </div>
+    
+    <script src="https://d3js.org"></script>
+    <script>
+        const nodes_payload = %s;
+        const w = 900, h = 380;
+        
+        const svg = d3.select("#canvas-mount-node").append("svg").attr("width", w).attr("height", h);
+        
+        const f_sim = d3.forceSimulation(nodes_payload)
+            .force("charge", d3.forceManyBody().strength(12))
+            .force("center", d3.forceCenter(w / 2, h / 2))
+            .force("collision", d3.forceCollide().radius(42))
+            .on("tick", ticked);
+            
+        const element_nodes = svg.selectAll("g").data(nodes_payload).enter().append("g")
+            .call(d3.drag().on("start", dragstart).on("drag", dragged).on("end", dragend));
+            
+        element_nodes.append("circle").attr("r", 36)
+            .attr("fill", d => d.sec === "Med" ? "rgba(227,24,55,0.12)" : d.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.03)")
+            .attr("stroke", d => d.sec === "Med" ? "#E31837" : d.sec === "Tech" ? "#D4AF37" : "rgba(255,255,255,0.2)")
+            .attr("stroke-width", 1.5).style("cursor", "pointer")
+            .on("mouseover", function(event, d) {
+                d3.select(this).attr("stroke-width", 3).attr("fill", "rgba(227,24,55,0.25)");
+                document.getElementById("matrix-ticker").innerText = `⚡ [NODE RE-INSULATED] Sector: ${d.sec} // Profession: ${d.label} -> Mapped into Cecilia Woon's risk insulation protection loops.`;
+            })
+            .on("mouseout", function(event, d) {
+                d3.select(this).attr("stroke-width", 1.5).attr("fill", d.sec === "Med" ? "rgba(227,24,55,0.12)" : d.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.03)");
+            });
+            
+        element_nodes.append("text").text(d => d.label)
+            .attr("text-anchor", "middle").attr("dy", ".3em").attr("fill", "#FFFFFF")
+            .style("font-size", "10px").style("pointer-events", "none").style("font-family", "sans-serif");
+            
+        function ticked() { element_nodes.attr("transform", d => `translate(${Math.max(40, Math.min(w - 40, d.x))}, ${Math.max(40, Math.min(h - 40, d.y))})`); }
+        function dragstart(e, d) { if (!e.active) f_sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
+        function dragged(e, d) { d.fx = e.x; d.fy = e.y; }
+        function dragend(e, d) { if (!e.active) f_sim.alphaTarget(0); d.fx = null; d.fy = null; }
+    </script>
+    """ % str(bubble_data_payload)
+
+    st.components.v1.html(canvas_html_matrix, height=480, scrolling=False)
+
 """, unsafe_allow_html=True)
 
     st.markdown('<div style="padding: 40px 0 0 45px;">', unsafe_allow_html=True)

@@ -235,31 +235,27 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
         <div class="sakazuki-p">Statistically, if you live to be 70 years old, you are likely to spend <b>800 days</b> - more than two full years - lying in a hospital bed. Not because you are dying, but because modern medicine has shifted to aggressive, proactive preventative maintenance (diabetes tracking, cardiovascular calibrations, intensive rehabilitation). Standard insurance pays the clinic to fix the body, but it ignores the massive fallout to your life. When the human factory shuts down for routine asphalt maintenance, your personal cashflow commerce shouldn't collapse.</div>
     </div>
 </div>
+<div class="sakazuki-row">
+    <div class="sakazuki-left-label">The Strategist</div>
+    <div class="sakazuki-right-content">
+        <div class="sakazuki-h3">Meet Cecilia Woon</div>
+        <div class="sakazuki-p">Cecilia is not your traditional financial advisor. She spent over a decade as a high-level global marketing strategist and e-commerce head managing massive corporate profit and loss statements (P&Ls) and multi-city international rollouts for market giants like <b>Wacom, Nokia, Honeywell, and L&L</b>. Holding a BA in Economics & Philosophy from NUS paired with an advanced Level 3 FinTech Developer certification (Python, AI, Analytics) from the NUS School of Computing, she synthesizes human behavioral data with unfeeling mathematical safety nets. She diagnoses emerging macro liabilities inside a human lifespan long before they cross into the public ledger.</div>
+    </div>
+</div>
+<div class="sakazuki-row">
+    <div class="sakazuki-left-label">The Mosaic</div>
+    <div class="sakazuki-right-content">
+        <div class="sakazuki-h3">The Lives We Protect</div>
+        <div class="sakazuki-p">From frontline nurses and specialist cardiologists to transport logistics leads, educators, and infrastructure operations managers. Every societal career path requires corporate-grade income insulation layers. (Immersive interactive 50-occupation bubble canvas framework computing in background console).</div>
+    </div>
+</div>
 """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="sakazuki-row">
-        <div class="sakazuki-left-label">The Strategist</div>
-        <div class="sakazuki-right-content">
-            <div class="sakazuki-h3">Meet Cecilia Woon</div>
-            <div class="sakazuki-p">Cecilia is not your traditional financial advisor. She spent over a decade as a high-level global marketing strategist and e-commerce head managing massive corporate profit and loss statements (P&Ls) and multi-city international rollouts for market giants like <b>Wacom, Nokia, Honeywell, and L&L</b>. Holding a BA in Economics & Philosophy from NUS paired with an advanced Level 3 FinTech Developer certification (Python, AI, Analytics) from the NUS School of Computing, she synthesizes human behavioral data with unfeeling mathematical safety nets. She diagnoses emerging macro liabilities inside a human lifespan long before they cross into the public ledger.</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    st.markdown("""
-    <div class="sakazuki-row">
-        <div class="sakazuki-left-label">The Mosaic</div>
-        <div class="sakazuki-right-content">
-            <div class="sakazuki-h3">The Lives We Protect</div>
-            <div class="sakazuki-p">From frontline nurses and specialist cardiologists to transport logistics leads, educators, and infrastructure operations managers. Every societal career path requires corporate-grade income insulation layers. (Immersive interactive 50-occupation bubble canvas framework computing in background console).</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
 
     st.markdown('<div style="padding: 40px 0 0 45px;">', unsafe_allow_html=True)
     if st.button("Initialize Risk Analysis Sequence", type="primary"):
         st.success("Sequence authorized. Cecilia Woon's office will review your corporate capital coordinates shortly.")
     st.markdown('</div>', unsafe_allow_html=True)
+
 elif navigation_selection == "📚 Research & Education Vault":
     st.markdown('<div style="padding: 0 45px 40px 45px;">', unsafe_allow_html=True)
     st.markdown('<div class="reyou-panel-header">Treat the Exposure, Not Just the Premium</div>', unsafe_allow_html=True)

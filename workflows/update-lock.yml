@@ -1,0 +1,25 @@
+yamlname: Update UV Lock
+
+on:
+  push:
+    paths:
+      - 'pyproject.toml'
+  workflow_dispatch:
+
+jobs:
+  update-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install UV
+        uses: astral-sh/setup-uv@v5
+
+      - name: Sync and Update Lock File
+        run: uv lock --update
+
+      - name: Commit Updated uv.lock
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update uv.lock with new packages"

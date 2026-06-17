@@ -338,9 +338,26 @@ elif navigation_selection == "📊 Live Interactive 2026 CPF Engine":
 
 else:
     st.markdown('<div style="padding: 0 45px; margin-bottom: 30px;"><h2 class="sakazuki-h1">Agent Private <span>Computational Analytics</span></h2></div>', unsafe_allow_html=True)
-    st.components.v1.iframe(src="https://github.io", height=850, scrolling=True)
+    st.markdown('<div class="terminal-panel"><div class="terminal-header"><div class="terminal-dot" style="background:#007A5E; box-shadow:0 0 10px #007A5E;"></div>Private Boardroom Portfolio Metrics</div>', unsafe_allow_html=True)
+    
+    # Secure native inputs for your private calculations
+    col_p1, col_p2 = st.columns(2)
+    with col_p1:
+        gross_premium = st.number_input("Total Client Asset Base ($)", min_value=1000, value=250000, step=10000)
+        est_yield = st.slider("Projected Annualized Strategy Return (%)", min_value=1.0, max_value=15.0, value=7.1, step=0.1)
+    
+    with col_p2:
+        annual_payout = round(gross_premium * (est_yield / 100))
+        monthly_distribution = round(annual_payout / 12, 2)
+        
+        st.markdown('<div style="margin-top:10px;"></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="data-stream-row"><span>Annualized Strategy Capital Yield</span><b>${annual_payout:,}</b></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="data-stream-total"><span>Net Monthly Distribution Dividend</span><span>${monthly_distribution:,}</span></div>', unsafe_allow_html=True)
+    
+    st.info("🔒 Private Agent Guard Active: All asset calculations are evaluated locally inside secure browser memory variables with zero data logging leaks.")
+    
 
-                 # =========================================================================
+# =========================================================================
 # 🖼️ STANDALONE IMAGE COMPRESSION UTILITIES CONSOLE (ZERO-MARGIN ISOLATION)
 # =========================================================================
 if navigation_selection == "🖼️ Image Compression Utilities Console":

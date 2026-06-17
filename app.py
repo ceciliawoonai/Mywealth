@@ -6,7 +6,7 @@ import streamlit as st
 st.set_page_config(page_title="Cecilia Woon | Private Wealth Console", layout="wide")
 
 # =========================================================================
-# 🏛️ GLOBAL SECURE IMMERSIVE KINETIC MATRIX ENGINE (ZERO EXTERNAL LINKS)
+# 🏛️ GLOBAL SECURE IMMERSIVE LIQUID MATRIX ENGINE (ELVALABS STYLE MOTION)
 # =========================================================================
 GLOBAL_BUBBLE_CANVAS_HTML = r"""
 <div class="sakazuki-row" style="padding-left:0; padding-right:0; box-sizing:border-box;">
@@ -18,42 +18,50 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
 </div>
 
 <style>
-    /* High-motion kinetic particle waves animation framework styles */
-    @keyframes matrixPulse {
-        0% { transform: scale(0.85); opacity: 0.2; border-width: 1px; }
-        50% { transform: scale(1.05); opacity: 0.6; border-width: 2px; }
-        100% { transform: scale(0.85); opacity: 0.2; border-width: 1px; }
+    /* Continuous 3D Morphing Liquid Blob Keyframes */
+    @keyframes liquidMorph {
+        0% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; transform: rotate(0deg); }
+        50% { border-radius: 70% 30% 52% 48% / 60% 40% 60% 40%; transform: rotate(180deg); }
+        100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; transform: rotate(360deg); }
     }
-    @keyframes fluidShift {
-        0% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
-        50% { border-radius: 70% 30% 52% 48% / 60% 40% 60% 40%; }
-        100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+    
+    .kinetic-bubble-container {
+        position: relative;
+        width: 58px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 5;
     }
-    .kinetic-bubble-node {
-        position: relative; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center;
-        cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 5;
-        background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
-        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-sizing: border-box;
+    
+    .liquid-background-layer {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        animation: liquidMorph 8s linear infinite;
+        transition: all 0.4s ease;
+        z-index: 1;
+        box-sizing: border-box;
     }
-    .wave-core {
-        position: absolute; width: 85%; height: 85%; opacity: 0.5; z-index: 1;
-        animation: fluidShift 6s ease-in-out infinite alternate;
-        transition: all 0.3s ease; pointer-events: none;
-    }
-    .pulse-ring {
-        position: absolute; width: 100%; height: 100%; border-style: solid; border-radius: 50%; z-index: 2;
-        pointer-events: none; box-sizing: border-box;
-    }
+    
     .monogram-label-overlay {
-        position: relative; z-index: 10; color: #FFFFFF; font-family: 'Inter', sans-serif;
-        font-size: 11px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        pointer-events: none; text-align: center; line-height: 1;
+        position: relative;
+        z-index: 10;
+        color: #FFFFFF;
+        font-family: 'Inter', sans-serif;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        pointer-events: none;
+        text-align: center;
     }
 </style>
 
 <div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:35px 25px; width:100%; position:relative; min-height:420px; overflow:hidden; box-sizing:border-box;">
     <div id="matrix-ticker" style="font-family:'Courier New', monospace; font-size:12px; color:#8A8A93; margin-bottom:30px; min-height:18px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:12px;">[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...</div>
-    <div id="avatar-matrix-grid" style="display:flex; flex-wrap:wrap; justify-content:center; gap:18px; max-width:860px; margin:0 auto;"></div>
+    <div id="avatar-matrix-grid" style="display:flex; flex-wrap:wrap; justify-content:center; gap:22px; max-width:860px; margin:0 auto;"></div>
 </div>
 
 <script>
@@ -63,53 +71,42 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
         const ticker = document.getElementById("matrix-ticker");
         
         profile_nodes.forEach((n, idx) => {
-            const node = document.createElement("div");
-            node.className = "kinetic-bubble-node";
+            const container = document.createElement("div");
+            container.className = "kinetic-bubble-container";
             
-            const color = n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.3)";
-            const text_color = n.sec === "Med" ? "#FF4D61" : n.sec === "Tech" ? "#D4AF37" : "#E4E4E7";
-            node.style.border = `1px solid ${color}`;
-            node.style.borderRadius = "50%";
-            node.style.color = text_color;
+            const sector_color = n.sec === "Med" ? "rgba(227,24,55,1)" : n.sec === "Tech" ? "rgba(212,175,55,1)" : "rgba(255, 255, 255, 0.3)";
+            const glow_color = n.sec === "Med" ? "rgba(227,24,55,0.15)" : n.sec === "Tech" ? "rgba(212,175,55,0.15)" : "rgba(255, 255, 255, 0.03)";
+            
+            // Render the moving background layer inside the item
+            const liquidBg = document.createElement("div");
+            liquidBg.className = "liquid-background-layer";
+            liquidBg.style.border = `1.5px solid ${sector_color}`;
+            liquidBg.style.background = `linear-gradient(135deg, ${glow_color} 0%, rgba(5,5,7,0.8) 100%)`;
+            liquidBg.style.animationDuration = `${6 + (idx % 4) * 2}s`; // Varying speeds for asymmetry
             
             const labelSpan = document.createElement("span");
             labelSpan.className = "monogram-label-overlay";
             labelSpan.innerText = n.init;
-            node.appendChild(labelSpan);
             
-            // Inject fluid motion wave core matrix
-            const wave = document.createElement("div");
-            wave.className = "wave-core";
-            wave.style.background = n.sec === "Med" ? "rgba(227,24,55,0.12)" : n.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.04)";
-            wave.style.border = `1px solid ${color}`;
-            wave.style.animationDelay = `${idx * 0.15}s`;
+            container.appendChild(liquidBg);
+            container.appendChild(labelSpan);
+            grid.appendChild(container);
             
-            // Inject continuous tracking perimeter pulse ring
-            const pulse = document.createElement("div");
-            pulse.className = "pulse-ring";
-            pulse.style.borderColor = color;
-            pulse.style.animation = `matrixPulse ${2 + (idx % 3) * 0.5}s linear infinite`;
-            pulse.style.animationDelay = `${idx * 0.2}s`;
-            
-            node.appendChild(wave);
-            node.appendChild(pulse);
-            grid.appendChild(node);
-            
-            node.addEventListener("mouseover", () => {
-                node.style.transform = "scale(1.3)";
-                node.style.borderColor = "#FF4D61";
-                node.style.color = "#FFFFFF";
-                node.style.boxShadow = `0 0 20px ${color}`;
-                wave.style.background = "rgba(255, 77, 97, 0.3)";
+            // Hover logic triggers
+            container.addEventListener("mouseover", () => {
+                container.style.transform = "scale(1.35)";
+                liquidBg.style.borderColor = "#FF4D61";
+                liquidBg.style.background = n.sec === "Med" ? "rgba(227,24,55,0.3)" : n.sec === "Tech" ? "rgba(212,175,55,0.3)" : "rgba(255,255,255,0.2)";
+                liquidBg.style.boxShadow = `0 0 20px ${sector_color}`;
                 ticker.style.color = "#FF4D61";
-                ticker.innerText = `\u26A1 [INSULATION CRITICAL] Sector: ${n.sec} // Profile: ${n.label} -> Monitored inside Cecilia's biological risk mitigation system loop.`;
+                ticker.innerText = `\u26A1 [STREAM MATRIX] Sector: ${n.sec} // Profile Focus: ${n.label} -> Successfully linked to Cecilia's operational risk insulation framework.`;
             });
             
-            node.addEventListener("mouseout", () => {
-                node.style.transform = "scale(1)";
-                node.style.borderColor = color;
-                node.style.boxShadow = "none";
-                wave.style.background = n.sec === "Med" ? "rgba(227,24,55,0.12)" : n.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.04)";
+            container.addEventListener("mouseout", () => {
+                container.style.transform = "scale(1)";
+                liquidBg.style.borderColor = sector_color;
+                liquidBg.style.background = `linear-gradient(135deg, ${glow_color} 0%, rgba(5,5,7,0.8) 100%)`;
+                liquidBg.style.boxShadow = "none";
                 ticker.style.color = "#8A8A93";
                 ticker.innerText = "[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...";
             });

@@ -410,10 +410,8 @@ if navigation_selection == "🖼️ Image Compression Utilities Console":
     st.markdown('</div>', unsafe_allow_html=True)
 # =========================================================================
 # 🎨 IMMERSIVE AI MAKEOVER & MORPH STUDIO (ZERO-MARGIN STANDALONE MODULE)
-# =========================================================================
 if navigation_selection == "🎨 Immersive AI Makeover & Morph Studio":
     import numpy as np
-    import cv2
     from PIL import Image, ImageEnhance
     import io
 

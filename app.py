@@ -528,7 +528,7 @@ if navigation_selection == "👑 Meitu VIP AI Alternative Studio":
                 
             # Pad background bounds back to uniform width properties to ensure centering clarity
             final_render = Image.new("RGB", (orig_w, orig_h), (5, 5, 7))
-            paste_x = (orig_w - work_canvas.size) // 2
+            paste_x = (orig_w - work_canvas.size[0]) // 2
             final_render.paste(work_canvas, (paste_x, 0))
             
             # Render Viewport Image

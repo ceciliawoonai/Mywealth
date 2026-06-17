@@ -339,3 +339,61 @@ elif navigation_selection == "📊 Live Interactive 2026 CPF Engine":
 else:
     st.markdown('<div style="padding: 0 45px; margin-bottom: 30px;"><h2 class="sakazuki-h1">Agent Private <span>Computational Analytics</span></h2></div>', unsafe_allow_html=True)
     st.components.v1.iframe(src="https://github.io", height=850, scrolling=True)
+
+                 elif navigation_selection == "🖼️ Image Compression Utilities Console":
+    from PIL import Image
+    import io
+
+    st.markdown('<div style="padding: 0 45px;"><h2 class="sakazuki-h1">Image Compression <span>Utilities Console</span></h2><p class="sakazuki-p" style="margin-bottom:30px;">Compress heavy image files down to under 7MB instantly for your website uploads or profile swap apps. Processing executes securely in local browser memory caches with zero data logging leaks.</p></div>', unsafe_allow_html=True)
+    
+    st.markdown('<div style="padding: 0 45px;">', unsafe_allow_html=True)
+    uploaded_file = st.file_uploader("Upload Image Coordinate (JPEG, JPG, PNG)", type=["jpg", "jpeg", "png"])
+    
+    if uploaded_file is not None:
+        # Retrieve binary buffer properties
+        original_bytes = uploaded_file.size
+        original_mb = original_bytes / (1024 * 1024)
+        
+        st.info(f"📁 Raw File Parameters Loaded: **{uploaded_file.name}** ({original_mb:.2f} MB)")
+        
+        # Load asset into memory matrix
+        img = Image.open(uploaded_file)
+        
+        # Configuration parameters column split
+        col_c1, col_c2 = st.columns(2)
+        with col_c1:
+            quality_target = st.slider("Compression Quality Density Scale", min_value=10, max_value=100, value=75, step=5)
+            st.caption("Lowering density shrinks bytes further. 75% preserves crisp, high-end website clarity.")
+        
+        # Initialize processing output streams
+        output_stream = io.BytesIO()
+        
+        # Enforce RGB standard conversion path if PNG profile contains alpha parameters
+        if img.mode in ("RGBA", "P"):
+            img = img.convert("RGB")
+            
+        # Execute processing loop down to memory stream vectors
+        img.save(output_stream, format="JPEG", quality=quality_target, optimize=True)
+        compressed_bytes = output_stream.tell()
+        compressed_mb = compressed_bytes / (1024 * 1024)
+        
+        with col_c2:
+            st.markdown('<div style="margin-top:10px;"></div>', unsafe_allow_html=True)
+            if compressed_mb < 7.0:
+                st.success(f"✅ Compression Bounds Secure: **{compressed_mb:.2f} MB** (Under 7MB Limit)")
+            else:
+                st.warning(f"⚠️ Scale Warning: File size is {compressed_mb:.2f} MB. Lower the quality scale slightly to drop under 7MB.")
+        
+        # Display instant visual preview before downloading
+        st.image(output_stream, caption="Compressed Asset Preview Matrix", width=400)
+        
+        # Download trigger button element
+        st.download_button(
+            label="Download Compressed Output Asset",
+            data=output_stream.getvalue(),
+            file_name=f"compressed_{uploaded_file.name.split('.')[0]}.jpg",
+            mime="image/jpeg",
+            type="primary"
+        )
+    st.markdown('</div>', unsafe_allow_html=True)
+

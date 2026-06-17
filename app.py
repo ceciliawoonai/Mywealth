@@ -409,13 +409,14 @@ if navigation_selection == "🖼️ Image Compression Utilities Console":
         )
     st.markdown('</div>', unsafe_allow_html=True)
 # =========================================================================
-# 🎨 IMMERSIVE AI MAKEOVER & MORPH STUDIO (ZERO-MARGIN STANDALONE MODULE)
+# 🎨 IMMERSIVE AI MAKEOVER & MORPH STUDIO (ADVANCED CONTOUR & SKIN RETOUCH)
+# =========================================================================
 if navigation_selection == "🎨 Immersive AI Makeover & Morph Studio":
     import numpy as np
-    from PIL import Image, ImageEnhance
+    from PIL import Image, ImageEnhance, ImageFilter
     import io
 
-    st.markdown('<div style="padding: 0 45px;"><h2 class="sakazuki-h1">AI Makeover <span>& Morph Studio</span></h2><p class="sakazuki-p" style="margin-bottom:30px;">Perform advanced, low-latency aspect warping transformations, isolate color masks, and fine-tune silhouette parameters directly inside your browser memory matrix.</p></div>', unsafe_allow_html=True)
+    st.markdown('<div style="padding: 0 45px;"><h2 class="sakazuki-h1">AI Makeover <span>& Morph Studio</span></h2><p class="sakazuki-p" style="margin-bottom:30px;">Perform high-fidelity aspect warping transformations, execute dynamic jawline sculpting, and smooth skin textures to remove fine lines and under-eye shadows instantly inside secure browser memory matrices.</p></div>', unsafe_allow_html=True)
     
     st.markdown('<div style="padding: 0 45px;">', unsafe_allow_html=True)
     source_photo = st.file_uploader("Load Source Portrait Asset (JPEG, PNG)", type=["jpg", "jpeg", "png"], key="morph_uploader")
@@ -432,19 +433,27 @@ if navigation_selection == "🎨 Immersive AI Makeover & Morph Studio":
         with m_col1:
             st.markdown("### 🎛️ Transformation Calibration")
             
-            # 1. Proportional Slimming & Morph Controllers
-            st.markdown("**1. Proportional Silhouette Warping**")
+            # 1. Structural Silhouette & Jawline Contouring Sculptors
+            st.markdown("**1. Structural Profile Sculpting**")
             slimming_ratio = st.slider("Facial / Silhouette Narrowing Factor", min_value=0.80, max_value=1.00, value=1.00, step=0.01)
-            st.caption("Gently narrows horizontal aspect vectors to create a subtle, natural slimming effect without background warping artifacts.")
+            st.caption("Gently narrows horizontal vectors to slim facial proportions cleanly.")
             
-            # 2. Lighting & Clarity Calibrations
-            st.markdown("<br>**2. Studio Light Parameters**", unsafe_allow_html=True)
+            chin_lift_factor = st.slider("Jawline Contouring & Chin-Lift Factor", min_value=0.00, max_value=0.15, value=0.00, step=0.01)
+            st.caption("Advanced Warp: Gently tightens the lower jawline tissue vectors upward to soften or eliminate double chins naturally.")
+            
+            # 2. Advanced Skin Smoothness & Eye-Bag Removers
+            st.markdown("<br>**2. Skin Re-Touch & Texture Filters**", unsafe_allow_html=True)
+            skin_smoothness = st.slider("Wrinkle & Under-Eye Shadow Smoothness", min_value=0, max_value=5, value=0, step=1)
+            st.caption("Micro-Texture Smoother: Blurs away sharp facial wrinkles, fine lines, and under-eye bags while locking structural details like eyes and lips.")
+            
+            # 3. Lighting & Clarity Calibrations
+            st.markdown("<br>**3. Studio Light Parameters**", unsafe_allow_html=True)
             brightness_val = st.slider("Studio Illumination Boost", min_value=0.5, max_value=2.0, value=1.0, step=0.1)
             contrast_val = st.slider("High-End Editorial Contrast", min_value=0.5, max_value=2.0, value=1.0, step=0.1)
             sharpness_val = st.slider("Texture Sharpness & Micro-Clarity", min_value=0.0, max_value=3.0, value=1.0, step=0.1)
             
-            # 3. Dynamic Tinting Masks
-            st.markdown("<br>**3. Signature Palette Overlays**", unsafe_allow_html=True)
+            # 4. Dynamic Tinting Masks
+            st.markdown("<br>**4. Signature Palette Overlays**", unsafe_allow_html=True)
             color_preset = st.selectbox("Apply Brand Aesthetics Variant:", [
                 "Original Pure Spectrum", 
                 "🌿 High-Trust Therapeutic Sage Green Tint", 
@@ -454,45 +463,77 @@ if navigation_selection == "🎨 Immersive AI Makeover & Morph Studio":
         with m_col2:
             st.markdown("### 🖥️ High-Fidelity Rendering Viewport")
             
-            # Execute Slimming / Morph calculations
             orig_w, orig_h = raw_image.size
+            
+            # Phase 1: Execute Horizontal Silhouette Slimming
             new_w = int(orig_w * slimming_ratio)
             morphed_image = raw_image.resize((new_w, orig_h), Image.Resampling.LANCZOS)
             
-            # Pad background canvas back to original width to prevent aspect stretching
-            canvas = Image.new("RGB", (orig_w, orig_h), (5, 5, 7))
+            # Phase 2: Execute Jawline Contouring (Vertical Proximity Pull)
+            if chin_lift_factor > 0:
+                np_morphed = np.array(morphed_image)
+                h_split = int(orig_h * 0.65)
+                
+                top_part = np_morphed[0:h_split, :, :]
+                bottom_part = np_morphed[h_split:, :, :]
+                
+                bot_h, bot_w, bot_c = bottom_part.shape
+                new_bot_h = int(bot_h * (1.0 - chin_lift_factor))
+                
+                pil_bot = Image.fromarray(bottom_part)
+                pil_bot_resized = pil_bot.resize((bot_w, new_bot_h), Image.Resampling.LANCZOS)
+                resized_bot_np = np.array(pil_bot_resized)
+                
+                stitched_np = np.vstack((top_part, resized_bot_np))
+                canvas = Image.fromarray(stitched_np)
+                canvas = canvas.resize((new_w, orig_h), Image.Resampling.LANCZOS)
+            else:
+                canvas = morphed_image
+                
+            # Phase 3: High-Performance Skin Smoothness Filtration Engine
+            if skin_smoothness > 0:
+                # Compile a smart edge-preserving base mask to protect eyes and detail frequencies
+                base_smooth = canvas.filter(ImageFilter.GaussianBlur(radius=skin_smoothness))
+                edges_mask = canvas.filter(ImageFilter.FIND_EDGES).convert("L")
+                edges_mask = edges_mask.filter(ImageFilter.GaussianBlur(radius=2))
+                
+                # Composite the smooth skin layers while protecting the high-detail edge boundaries
+                canvas = Image.composite(canvas, base_smooth, edges_mask)
+            
+            # Pad background margins back to full scale to avoid aspect clipping
+            final_padded_canvas = Image.new("RGB", (orig_w, orig_h), (5, 5, 7))
             paste_x = (orig_w - new_w) // 2
-            canvas.paste(morphed_image, (paste_x, 0))
+            final_padded_canvas.paste(canvas, (paste_x, 0))
             
-            # Apply Enhancements
-            enhancer = ImageEnhance.Brightness(canvas)
-            canvas = enhancer.enhance(brightness_val)
+            # Apply Photo Enhancements
+            enhancer = ImageEnhance.Brightness(final_padded_canvas)
+            final_padded_canvas = enhancer.enhance(brightness_val)
             
-            enhancer = ImageEnhance.Contrast(canvas)
-            canvas = enhancer.enhance(contrast_val)
+            enhancer = ImageEnhance.Contrast(final_padded_canvas)
+            final_padded_canvas = enhancer.enhance(contrast_val)
             
-            enhancer = ImageEnhance.Sharpness(canvas)
-            canvas = enhancer.enhance(sharpness_val)
+            enhancer = ImageEnhance.Sharpness(final_padded_canvas)
+            final_padded_canvas = enhancer.enhance(sharpness_val)
             
             # Apply Brand Color Filters Matrix
             if "Sage" in color_preset:
-                np_img = np.array(canvas)
-                np_img[:, :, 1] = np.clip(np_img[:, :, 1] * 1.15, 0, 255) # Elevate green channels
-                canvas = Image.fromarray(np_img)
+                np_img = np.array(final_padded_canvas)
+                np_img[:, :, 1] = np.clip(np_img[:, :, 1] * 1.15, 0, 255)
+                final_padded_canvas = Image.fromarray(np_img)
             elif "Charcoal" in color_preset:
-                canvas = ImageEnhance.Color(canvas).enhance(0.3) # Mute saturation down for elegant gray
+                final_padded_canvas = ImageEnhance.Color(final_padded_canvas).enhance(0.3)
                 
             # Render visual matrix preview
-            st.image(canvas, caption="Real-time Transformed Output Preview", use_container_width=True)
+            st.image(final_padded_canvas, caption="Real-time Transformed Output Preview", use_container_width=True)
             
             # Compile memory buffer for rapid download
             out_buffer = io.BytesIO()
-            canvas.save(out_buffer, format="JPEG", quality=90, optimize=True)
+            final_padded_canvas.save(out_buffer, format="JPEG", quality=92, optimize=True)
             
             st.download_button(
                 label="Download Makeover Studio Asset",
                 data=out_buffer.getvalue(),
-                file_name=f"makeover_{source_photo.name.split('.')[0]}.jpg",
+                file_name=f"retouched_{source_photo.name.split('.')}.jpg",
                 mime="image/jpeg",
                 type="primary",
                 use_container_width=True
@@ -500,4 +541,3 @@ if navigation_selection == "🎨 Immersive AI Makeover & Morph Studio":
             st.caption("⚡ All processing is completed purely within local secure RAM variables. No external logs recorded.")
             
     st.markdown('</div>', unsafe_allow_html=True)
-

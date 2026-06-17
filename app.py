@@ -6,7 +6,7 @@ import streamlit as st
 st.set_page_config(page_title="Cecilia Woon | Private Wealth Console", layout="wide")
 
 # =========================================================================
-# 🏛️ GLOBAL SECURE IMMERSIVE CINEMA LOOP MATRIX (HTML5 ENGINE)
+# 🏛️ GLOBAL SECURE IMMERSIVE KINETIC MATRIX ENGINE (ZERO EXTERNAL LINKS)
 # =========================================================================
 GLOBAL_BUBBLE_CANVAS_HTML = r"""
 <div class="sakazuki-row" style="padding-left:0; padding-right:0; box-sizing:border-box;">
@@ -18,28 +18,35 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
 </div>
 
 <style>
+    /* High-motion kinetic particle waves animation framework styles */
     @keyframes matrixPulse {
-        0% { transform: scale(0.9); opacity: 0.3; }
-        50% { transform: scale(1.08); opacity: 0.7; }
-        100% { transform: scale(0.9); opacity: 0.3; }
+        0% { transform: scale(0.85); opacity: 0.2; border-width: 1px; }
+        50% { transform: scale(1.05); opacity: 0.6; border-width: 2px; }
+        100% { transform: scale(0.85); opacity: 0.2; border-width: 1px; }
+    }
+    @keyframes fluidShift {
+        0% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+        50% { border-radius: 70% 30% 52% 48% / 60% 40% 60% 40%; }
+        100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
     }
     .kinetic-bubble-node {
         position: relative; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center;
         cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 5;
-        border-radius: 50%; overflow: hidden; box-sizing: border-box;
+        background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-sizing: border-box;
     }
-    .cinema-bg-loop {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-        object-fit: cover; z-index: 1; opacity: 0.35; filter: grayscale(40%) brightness(70%);
+    .wave-core {
+        position: absolute; width: 85%; height: 85%; opacity: 0.5; z-index: 1;
+        animation: fluidShift 6s ease-in-out infinite alternate;
         transition: all 0.3s ease; pointer-events: none;
     }
     .pulse-ring {
         position: absolute; width: 100%; height: 100%; border-style: solid; border-radius: 50%; z-index: 2;
-        pointer-events: none; box-sizing: border-box; animation: matrixPulse 2.5s linear infinite;
+        pointer-events: none; box-sizing: border-box;
     }
     .monogram-label-overlay {
         position: relative; z-index: 10; color: #FFFFFF; font-family: 'Inter', sans-serif;
-        font-size: 11px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+        font-size: 11px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         pointer-events: none; text-align: center; line-height: 1;
     }
 </style>
@@ -55,16 +62,6 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
         const grid = document.getElementById("avatar-matrix-grid");
         const ticker = document.getElementById("matrix-ticker");
         
-        // Premium, zero-block secure cinematic motion loops matching your sectors
-        const secure_motion_loops = [
-            "https://giphy.com", // Medical care tracking
-            "https://giphy.com", // Clinical consultation
-            "https://giphy.com", // SMRT/Transit dashboard motion
-            "https://giphy.com", // Technical development screen
-            "https://giphy.com", // F&B artisanal serving
-            "https://giphy.com"  // Education classroom setting
-        ];
-        
         profile_nodes.forEach((n, idx) => {
             const node = document.createElement("div");
             node.className = "kinetic-bubble-node";
@@ -72,44 +69,47 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
             const color = n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.3)";
             const text_color = n.sec === "Med" ? "#FF4D61" : n.sec === "Tech" ? "#D4AF37" : "#E4E4E7";
             node.style.border = `1px solid ${color}`;
+            node.style.borderRadius = "50%";
+            node.style.color = text_color;
             
-            // Mounting the clean Python pre-rendered initials
             const labelSpan = document.createElement("span");
             labelSpan.className = "monogram-label-overlay";
             labelSpan.innerText = n.init;
             node.appendChild(labelSpan);
             
-            // Mounting the cinematic moving viewport layer
-            const motionBg = document.createElement("img");
-            motionBg.className = "cinema-bg-loop";
-            motionBg.src = secure_motion_loops[idx % secure_motion_loops.length];
-            node.appendChild(motionBg);
+            // Inject fluid motion wave core matrix
+            const wave = document.createElement("div");
+            wave.className = "wave-core";
+            wave.style.background = n.sec === "Med" ? "rgba(227,24,55,0.12)" : n.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.04)";
+            wave.style.border = `1px solid ${color}`;
+            wave.style.animationDelay = `${idx * 0.15}s`;
             
+            // Inject continuous tracking perimeter pulse ring
             const pulse = document.createElement("div");
             pulse.className = "pulse-ring";
             pulse.style.borderColor = color;
-            pulse.style.animationDelay = `${idx * 0.15}s`;
-            node.appendChild(pulse);
+            pulse.style.animation = `matrixPulse ${2 + (idx % 3) * 0.5}s linear infinite`;
+            pulse.style.animationDelay = `${idx * 0.2}s`;
             
+            node.appendChild(wave);
+            node.appendChild(pulse);
             grid.appendChild(node);
             
-            // Micro-interactions scaling hover states loop
             node.addEventListener("mouseover", () => {
-                node.style.transform = "scale(1.35)";
+                node.style.transform = "scale(1.3)";
                 node.style.borderColor = "#FF4D61";
+                node.style.color = "#FFFFFF";
                 node.style.boxShadow = `0 0 20px ${color}`;
-                motionBg.style.opacity = "0.85";
-                motionBg.style.filter = "grayscale(0%) brightness(100%)";
+                wave.style.background = "rgba(255, 77, 97, 0.3)";
                 ticker.style.color = "#FF4D61";
-                ticker.innerText = `\u26A1 [STREAMING PROFILE] Sector: ${n.sec} // Focus Target: ${n.label} -> Successfully linked to Cecilia's biological P&L framework loop.`;
+                ticker.innerText = `\u26A1 [INSULATION CRITICAL] Sector: ${n.sec} // Profile: ${n.label} -> Monitored inside Cecilia's biological risk mitigation system loop.`;
             });
             
             node.addEventListener("mouseout", () => {
                 node.style.transform = "scale(1)";
                 node.style.borderColor = color;
                 node.style.boxShadow = "none";
-                motionBg.style.opacity = "0.35";
-                motionBg.style.filter = "grayscale(40%) brightness(70%)";
+                wave.style.background = n.sec === "Med" ? "rgba(227,24,55,0.12)" : n.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.04)";
                 ticker.style.color = "#8A8A93";
                 ticker.innerText = "[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...";
             });
@@ -117,7 +117,6 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
     })();
 </script>
 """
-
 
 
 

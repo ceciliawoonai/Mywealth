@@ -340,7 +340,10 @@ else:
     st.markdown('<div style="padding: 0 45px; margin-bottom: 30px;"><h2 class="sakazuki-h1">Agent Private <span>Computational Analytics</span></h2></div>', unsafe_allow_html=True)
     st.components.v1.iframe(src="https://github.io", height=850, scrolling=True)
 
-                 elif navigation_selection == "🖼️ Image Compression Utilities Console":
+                 # =========================================================================
+# 🖼️ STANDALONE IMAGE COMPRESSION UTILITIES CONSOLE (ZERO-MARGIN ISOLATION)
+# =========================================================================
+if navigation_selection == "🖼️ Image Compression Utilities Console":
     from PIL import Image
     import io
 
@@ -378,7 +381,6 @@ else:
         
         st.image(output_stream, caption="Compressed Asset Preview Matrix", width=400)
         
-        # Safe extraction of file root name
         base_name = uploaded_file.name.rsplit('.', 1)[0]
         st.download_button(
             label="Download Compressed Output Asset",

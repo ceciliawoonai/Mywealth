@@ -40,6 +40,7 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
         ];
         
         profile_nodes.forEach((n, idx) => {
+        profile_nodes.forEach((n, idx) => {
             const wrapper = document.createElement("div");
             wrapper.style.position = "relative";
             wrapper.style.width = "56px";
@@ -49,14 +50,13 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
             wrapper.style.overflow = "hidden";
             wrapper.style.transition = "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)";
             
-            // Generate glowing glass refraction boundary trims
             const border_color = n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.25)";
             wrapper.style.border = `2px solid ${border_color}`;
             wrapper.style.boxShadow = "0 8px 24px rgba(0,0,0,0.5), inset 0 0 8px rgba(255,255,255,0.2)";
             
-            // Create native HTML5 Video elements for frictionless auto-play loops
             const video = document.createElement("video");
             video.src = video_loops[idx % video_loops.length];
+
             video.autoplay = true;
             video.loop = true;
             video.muted = true;

@@ -408,7 +408,7 @@ if navigation_selection == "🖼️ Image Compression Utilities Console":
         )
     st.markdown('</div>', unsafe_allow_html=True)
 # =========================================================================
-# 👑 CECILIA VIP AI STUDIO (PART 1: PARAMETER MATRIX)
+# 👑 CECILIA VIP AI STUDIO (PART 1: AI PORCELAIN MATRIX)
 # =========================================================================
 if navigation_selection == "👑 Cecilia VIP AI Studio":
     from PIL import Image, ImageEnhance, ImageFilter, ImageOps
@@ -438,7 +438,7 @@ if navigation_selection == "👑 Cecilia VIP AI Studio":
             st.markdown("<br>### ✨ Module 02: Advanced Generative Portrait Retouch", unsafe_allow_html=True)
             slimming = st.slider("Face & Body Slimming Factor", min_value=0.80, max_value=1.00, value=1.00, step=0.01, key="cecilia_slimming")
             chin_lift = st.slider("Double Chin Removal / Smooth Jawline", min_value=0.00, max_value=0.25, value=0.00, step=0.01, key="cecilia_chin")
-            smoothing = st.slider("Wrinkle Removal & Eye-Bag Eraser", min_value=0, max_value=10, value=0, step=1, key="cecilia_smooth")
+            smoothing = st.slider("AI Porcelain Skin & Eye-Bag Eraser", min_value=0, max_value=15, value=0, step=1, key="cecilia_smooth")
             teeth_whiten = st.slider("Teeth Whitening Exposure Boost", min_value=1.0, max_value=1.5, value=1.0, step=0.05, key="cecilia_teeth")
             
             st.markdown("<br>### 🤖 Module 03: AI Scene & Studio Lighting", unsafe_allow_html=True)
@@ -489,12 +489,20 @@ if navigation_selection == "👑 Cecilia VIP AI Studio":
                 stitched_np = np.vstack((top_matrix, np.array(pil_jaw_warped)))
                 work_canvas = Image.fromarray(stitched_np).resize((slim_w, ch), Image.Resampling.LANCZOS)
                 
-            # --- ADVANCED SMOOTHING ENGINE (PRESERVES TEXTURE AND CLEARS SHADOWS) ---
+            # --- DUAL-STAGE INTERPOLATED BILATERAL PORCELAIN SKIN SMOOTHER ---
             if smoothing > 0:
-                smooth_layer = work_canvas.filter(ImageFilter.BoxBlur(smoothing))
+                # Stage 1: Fine micro-texture diffusion base
+                smooth_pass1 = work_canvas.filter(ImageFilter.BoxBlur(smoothing // 2 + 1))
+                # Stage 2: Macro tone-blending overlay
+                smooth_pass2 = work_canvas.filter(ImageFilter.SMOOTH_MORE)
+                blended_smooth = Image.blend(smooth_pass1, smooth_pass2, 0.4)
+                
+                # High-pass variance edge mask creation to freeze crisp eye/lip markers
                 edge_layer = work_canvas.convert("L").filter(ImageFilter.FIND_EDGES)
-                edge_mask = edge_layer.filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.BoxBlur(2))
-                work_canvas = Image.composite(work_canvas, smooth_layer, edge_mask)
+                edge_mask = edge_layer.filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.BoxBlur(1))
+                
+                # Execute edge-preserving surface compilation
+                work_canvas = Image.composite(work_canvas, blended_smooth, edge_mask)
                 
             if teeth_whiten > 1.0:
                 np_whiten = np.array(work_canvas).astype(np.float32)
@@ -517,7 +525,7 @@ if navigation_selection == "👑 Cecilia VIP AI Studio":
                 work_canvas = Image.composite(work_canvas, sage_bg, scene_mask)
                 
             final_render = Image.new("RGB", (orig_w, orig_h), (5, 5, 7))
-            paste_x = (orig_w - work_canvas.size) // 2
+            paste_x = (orig_w - work_canvas.size[0]) // 2
             final_render.paste(work_canvas, (paste_x, 0))
             
             st.image(final_render, caption="Real-Time Ad-Free Output Viewport Matrix", use_container_width=True)
@@ -529,7 +537,7 @@ if navigation_selection == "👑 Cecilia VIP AI Studio":
             st.download_button(
                 label="👑 Export High-Res Watermark-Free Image Asset",
                 data=out_buffer.getvalue(),
-                file_name="cecilia_studio_output.jpg",
+                file_name="cecilia_porcelain_output.jpg",
                 mime="image/jpeg",
                 type="primary",
                 use_container_width=True
@@ -537,4 +545,3 @@ if navigation_selection == "👑 Cecilia VIP AI Studio":
             st.caption("🔒 Privacy Standard: Code processes entirely inside temporary RAM variables with zero data logging traps.")
             
     st.markdown('</div>', unsafe_allow_html=True)
-

@@ -169,8 +169,10 @@ navigation_selection = st.sidebar.radio("Go To Section Workspace:", [
     "📚 Research & Education Vault",
     "🎯 The Rorschach Protocol (Leads)",
     "📊 Live Interactive 2026 CPF Engine",
-    "🔒 Private Agent Computational View"
+    "🔒 Private Agent Computational View",
+    "🖼️ Image Compression Utilities Console"  # Add this exact option handle
 ])
+
 
 n1 = "active-nav-node" if navigation_selection == "🌐 Clinical P&L Philosophy" else ""
 n2 = "active-nav-node" if navigation_selection == "📚 Research & Education Vault" else ""

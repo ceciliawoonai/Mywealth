@@ -33,17 +33,14 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
         cv.style.width = "100%"; cv.style.display = "block";
         mount.appendChild(cv);
 
-        // Pre-load distinct, high-res avatar image nodes to prevent empty loading flashes
         c_nodes.forEach((n, idx) => {
-            n.x = 450 + (Math.random() - 0.5) * 200; // Tighter central spawning bounds
+            n.x = 450 + (Math.random() - 0.5) * 200;
             n.y = 190 + (Math.random() - 0.5) * 150;
             n.vx = (Math.random() - 0.5) * 0.8;
             n.vy = (Math.random() - 0.5) * 0.8;
-            n.baseRadius = 26; // Compact radius for tighter clustering
+            n.baseRadius = 26;
             n.r = n.baseRadius;
-            
             n.img = new Image();
-            // Deterministic selection of premium lifestyle portraits from Unsplash curated stock pools
             n.img.src = `https://unsplash.com{1500000000000 + (idx * 154321) % 9999999}?auto=format&fit=crop&w=80&h=80&q=80`;
         });
         
@@ -57,8 +54,6 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
         
         function loop() {
             ctx.clearRect(0, 0, cv.width, cv.height);
-            
-            // Render thin interconnected geometric constellation wires
             ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
             ctx.lineWidth = 1;
             for(let i=0; i<c_nodes.length; i++) {
@@ -66,23 +61,20 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
                     let dx = c_nodes[i].x - c_nodes[j].x;
                     let dy = c_nodes[i].y - c_nodes[j].y;
                     let dist = Math.sqrt(dx*dx + dy*dy);
-                    if(dist < 90) { // Tighter tracking wire scope
+                    if(dist < 90) {
                         ctx.beginPath(); ctx.moveTo(c_nodes[i].x, c_nodes[i].y);
                         ctx.lineTo(c_nodes[j].x, c_nodes[j].y); ctx.stroke();
                     }
                 }
             }
             
-            // Execute orbital physics and dynamic bubble adjustments loops
             let active_target = null;
-            
-            // Resolution of circle-on-circle elastic collisions to force a tight pack matrix
             for (let i = 0; i < c_nodes.length; i++) {
                 for (let j = i + 1; j < c_nodes.length; j++) {
                     let dx = c_nodes[j].x - c_nodes[i].x;
                     let dy = c_nodes[j].y - c_nodes[i].y;
                     let dist = Math.sqrt(dx*dx + dy*dy);
-                    let minDist = c_nodes[i].r + c_nodes[j].r + 4; // Buffer pad spacing
+                    let minDist = c_nodes[i].r + c_nodes[j].r + 4;
                     if (dist < minDist) {
                         let overlap = minDist - dist;
                         let ax = (dx / dist) * overlap * 0.5;
@@ -95,8 +87,6 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
 
             c_nodes.forEach(n => {
                 n.x += n.vx; n.y += n.vy;
-                
-                // Absolute boundary walls rebound safety tracks
                 if(n.x - n.baseRadius < 10 || n.x + n.baseRadius > cv.width - 10) n.vx *= -1;
                 if(n.y - n.baseRadius < 10 || n.y + n.baseRadius > cv.height - 10) n.vy *= -1;
                 
@@ -105,29 +95,19 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
                 
                 if(m_dist < n.baseRadius * 1.5) {
                     active_target = n;
-                    n.r = d3.easeCubicOut ? n.baseRadius * 1.3 : n.baseRadius * 1.25; // Expands cleanly upon mouse entry
-                    n.x += m_dx * 0.02; n.y += m_dy * 0.02; // Soft magnetic attraction drag
+                    n.r = n.baseRadius * 1.3;
+                    n.x += m_dx * 0.02; n.y += m_dy * 0.02;
                 } else {
-                    n.r = n.r * 0.9 + n.baseRadius * 0.1; // Smooth dampening back to base scale bounds
+                    n.r = n.r * 0.9 + n.baseRadius * 0.1;
                 }
                 
-                // Draw clipped high-density circular profile avatar images layout mask
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-                ctx.clip();
-                try {
-                    ctx.drawImage(n.img, n.x - n.r, n.y - n.r, n.r * 2, n.r * 2);
-                } catch(e) {
-                    ctx.fillStyle = "#1A1A22"; ctx.fill();
-                }
+                ctx.save(); ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.clip();
+                try { ctx.drawImage(n.img, n.x - n.r, n.y - n.r, n.r * 2, n.r * 2); } catch(e) { ctx.fillStyle = "#1A1A22"; ctx.fill(); }
                 ctx.restore();
                 
-                // Draw professional neon colored accent outer halo borders tracking
                 ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
                 ctx.strokeStyle = m_dist < n.baseRadius * 1.5 ? "#FF4D61" : n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.15)";
-                ctx.lineWidth = m_dist < n.baseRadius * 1.5 ? 3 : 1.5;
-                ctx.stroke();
+                ctx.lineWidth = m_dist < n.baseRadius * 1.5 ? 3 : 1.5; ctx.stroke();
             });
             
             if(active_target) {
@@ -137,7 +117,6 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
                 document.getElementById("matrix-ticker").style.color = "#8A8A93";
                 document.getElementById("matrix-ticker").innerText = "[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...";
             }
-            
             requestAnimationFrame(loop);
         }
         loop();
@@ -146,74 +125,130 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
 <script>
     if(false) {
 """
+st.markdown("""
+<style>
+    html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] { background-color: #050507 !important; color: #FFFFFF !important; font-family: 'Inter', sans-serif; }
+    [data-testid="stVerticalBlock"] { gap: 0rem !important; }
+    .brand-container { padding: 40px 45px 10px 45px; background: #050507; }
+    .brand-text { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.5px; text-transform: uppercase; }
+    .brand-text span { color: #E31837; font-size: 11px; font-family: 'Inter', sans-serif; font-weight: bold; letter-spacing: 2px; margin-left: 12px; vertical-align: middle; }
+    
+    .kinetic-nav { display: flex; justify-content: flex-start; gap: 3.5rem; padding: 18px 45px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 40px; }
+    .kinetic-nav span { cursor: pointer; color: #8A8A93; transition: all 0.4s ease; }
+    .kinetic-nav span:hover { color: #FFFFFF; }
+    .active-nav-node { color: #E31837 !important; font-weight: bold; }
 
+    .sakazuki-hero { padding: 40px 45px; margin-bottom: 20px; }
+    .sakazuki-tag { color: #8A8A93; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
+    .sakazuki-h1 { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; line-height: 1.2; margin-bottom: 15px; letter-spacing: -0.5px; }
+    .sakazuki-h1 span { color: #E31837; }
+    
+    .sakazuki-row { display: flex; border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 40px 45px; }
+    .sakazuki-left-label { flex: 0.4; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #8A8A93; font-weight: bold; }
+    .sakazuki-right-content { flex: 1.6; }
+    .sakazuki-h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; margin-bottom: 15px; color: #FFFFFF; }
+    .sakazuki-p { font-size: 16px; color: #A0A0A5; line-height: 1.7; max-width: 850px; }
+
+    .reyou-panel-header { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; }
+    .reyou-panel-subtitle { font-size: 16px; color: #8A8A93; margin-bottom: 40px; line-height: 1.6; max-width: 700px; }
+    .reyou-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 35px 30px; height: 100%; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reyou-card:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(227, 24, 55, 0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .reyou-card-num { font-size: 12px; font-weight: bold; color: #E31837; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+    .reyou-card-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: bold; color: #FFFFFF; margin-bottom: 12px; }
+    .reyou-card-desc { font-size: 14px; color: #8A8A93; line-height: 1.6; }
+
+    .terminal-panel { background: #0B0B0E; border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 16px; padding: 35px; margin-bottom: 30px; }
+    .terminal-header { font-size: 11px; text-transform: uppercase; font-weight: bold; color: #66666D; letter-spacing: 1.5px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .terminal-dot { width: 6px; height: 6px; background: #FF4D61; border-radius: 50%; box-shadow: 0 0 10px #FF4D61; }
+    .data-stream-row { display: flex; justify-content: space-between; padding: 16px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); font-size: 15px; color: #E4E4E7; }
+    .data-stream-total { display: flex; justify-content: space-between; padding: 18px 15px; font-weight: bold; background: rgba(227, 24, 55, 0.08); color: #FF4D61; border-radius: 8px; font-size: 16px; margin-top: 15px; border: 1px solid rgba(227, 24, 55, 0.2); }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown('<div class="brand-container"><div class="brand-text">CECILIA WOON <span>Private Wealth Advisory</span></div></div>', unsafe_allow_html=True)
+
+st.sidebar.markdown('**System Navigator**')
+navigation_selection = st.sidebar.radio("Go To Section Workspace:", [
+    "🌐 Clinical P&L Philosophy",
+    "📚 Research & Education Vault",
+    "🎯 The Rorschach Protocol (Leads)",
+    "📊 Live Interactive 2026 CPF Engine",
+    "🔒 Private Agent Computational View"
+])
+
+n1 = "active-nav-node" if navigation_selection == "🌐 Clinical P&L Philosophy" else ""
+n2 = "active-nav-node" if navigation_selection == "📚 Research & Education Vault" else ""
+n3 = "active-nav-node" if navigation_selection == "🎯 The Rorschach Protocol (Leads)" else ""
+n4 = "active-nav-node" if navigation_selection == "📊 Live Interactive 2026 CPF Engine" else ""
+n5 = "active-nav-node" if navigation_selection == "🔒 Private Agent Computational View" else ""
+
+st.markdown(f"""
+<div class="kinetic-nav">
+    <span class="{n1}">Philosophy</span>
+    <span class="{n2}">Education Vault</span>
+    <span class="{n3}">Rorschach Protocol</span>
+    <span class="{n4}">2026 Sovereign Engine</span>
+    <span class="{n5}">Agent Matrix Private</span>
+</div>
+""", unsafe_allow_html=True)
+if navigation_selection == "🌐 Clinical P&L Philosophy":
+    st.markdown("""
+<div class="sakazuki-hero">
+    <div class="sakazuki-tag">Risk Mitigation Practice</div>
+    <div class="sakazuki-h1">Applying Corporate P&L Principles<br>to <span>Human Biology</span></div>
+</div>
+<div class="sakazuki-row">
+    <div class="sakazuki-left-label">The Blind Spot</div>
+    <div class="sakazuki-right-content">
+        <div class="sakazuki-h3">Who pays your rent while you try to stay healthy?</div>
+        <div class="sakazuki-p">Statistically, if you live to be 70 years old, you are likely to spend <b>800 days</b> - more than two full years - lying in a hospital bed. Not because you are dying, but because modern medicine has shifted to aggressive, proactive preventative maintenance (diabetes tracking, cardiovascular calibrations, intensive rehabilitation). Standard insurance pays the clinic to fix the body, but it ignores the massive fallout to your life. When the human factory shuts down for routine asphalt maintenance, your personal cashflow commerce shouldn't collapse.</div>
+    </div>
+</div>
+<div class="sakazuki-row">
+    <div class="sakazuki-left-label">The Strategist</div>
+    <div class="sakazuki-right-content">
+        <div class="sakazuki-h3">Meet Cecilia Woon</div>
+        <div class="sakazuki-p">Cecilia is not your traditional financial advisor. She spent over a decade as a high-level global marketing strategist and e-commerce head managing massive corporate profit and loss statements (P&Ls) and multi-city international rollouts for market giants like <b>Wacom, Nokia, Honeywell, and L&L</b>. Holding a BA in Economics & Philosophy from NUS paired with an advanced Level 3 FinTech Developer certification (Python, AI, Analytics) from the NUS School of Computing, she synthesizes human behavioral data with unfeeling mathematical safety nets. She diagnoses emerging macro liabilities inside a human lifespan long before they cross into the public ledger.</div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+    bubble_data_payload = [
+        {"id": 1, "label": "Cardiologist", "sec": "Med"}, {"id": 2, "label": "Staff Nurse", "sec": "Med"},
+        {"id": 3, "label": "Radiographer", "sec": "Med"}, {"id": 4, "label": "Physio", "sec": "Med"},
+        {"id": 5, "label": "Scientist", "sec": "Med"}, {"id": 6, "label": "Elderly Care", "sec": "Med"},
+        {"id": 7, "label": "Vet Surgeon", "sec": "Med"}, {"id": 8, "label": "Pharmacist", "sec": "Med"},
+        {"id": 9, "label": "Dentist", "sec": "Med"}, {"id": 10, "label": "Therapist", "sec": "Med"},
+        {"id": 11, "label": "Teacher", "sec": "Edu"}, {"id": 12, "label": "Professor", "sec": "Edu"},
+        {"id": 13, "label": "SpecEd Coach", "sec": "Edu"}, {"id": 14, "label": "Policy Lead", "sec": "Edu"},
+        {"id": 15, "label": "Lawyer", "sec": "Edu"}, {"id": 16, "label": "SCDF Officer", "sec": "Edu"},
+        {"id": 17, "label": "Urban Planner", "sec": "Edu"}, {"id": 18, "label": "Social Worker", "sec": "Edu"},
+        {"id": 19, "label": "Archivist", "sec": "Edu"}, {"id": 20, "label": "Eco Officer", "sec": "Edu"},
+        {"id": 21, "label": "Cleaner Hero", "sec": "Ops"}, {"id": 22, "label": "Bus Captain", "sec": "Ops"},
+        {"id": 23, "label": "Port Operator", "sec": "Ops"}, {"id": 24, "label": "Logistics Sup", "sec": "Ops"},
+        {"id": 25, "label": "Security SCDF", "sec": "Ops"}, {"id": 26, "label": "Lift Tech", "sec": "Ops"},
+        {"id": 27, "label": "Delivery Rider", "sec": "Ops"}, {"id": 28, "label": "Project Manager", "sec": "Ops"},
+        {"id": 29, "label": "Air Traffic", "sec": "Ops"}, {"id": 30, "label": "Waste Engineer", "sec": "Ops"},
+        {"id": 31, "label": "AI Product Manager", "sec": "Tech"}, {"id": 32, "label": "Cyber Architect", "sec": "Tech"},
+        {"id": 33, "label": "UX Designer", "sec": "Tech"}, {"id": 34, "label": "Photojournalist", "sec": "Tech"},
+        {"id": 35, "label": "DevOps Engineer", "sec": "Tech"}, {"id": 36, "label": "Data Scientist", "sec": "Tech"},
+        {"id": 37, "label": "Audio Engineer", "sec": "Tech"}, {"id": 38, "label": "Media Creator", "sec": "Tech"},
+        {"id": 39, "label": "Biomed Tech", "sec": "Tech"}, {"id": 40, "label": "Cloud Lead", "sec": "Tech"},
+        {"id": 41, "label": "Hawker Legend", "sec": "Biz"}, {"id": 42, "label": "Hotel GM", "sec": "Biz"},
+        {"id": 43, "label": "Artisan Barista", "sec": "Biz"}, {"id": 44, "label": "Retail Lead", "sec": "Biz"},
+        {"id": 45, "label": "Cabin Crew", "sec": "Biz"}, {"id": 46, "label": "Compliance Officer", "sec": "Biz"},
+        {"id": 47, "label": "HR Specialist", "sec": "Biz"}, {"id": 48, "label": "Gym Coach", "sec": "Biz"},
+        {"id": 49, "label": "Agri Farmer", "sec": "Biz"}, {"id": 50, "label": "Art Curator", "sec": "Biz"}
+    ]
+
+    nodes_json_payload = json.dumps(bubble_data_payload)
+    compiled_canvas_html = GLOBAL_BUBBLE_CANVAS_HTML.replace("DATA_REPLACE_TOKEN", nodes_json_payload)
+    st.components.v1.html(compiled_canvas_html, height=620, scrolling=False)
 
     st.markdown('<div style="padding: 20px 0 0 45px;">', unsafe_allow_html=True)
     if st.button("Initialize Risk Analysis Sequence", type="primary"):
         st.success("Sequence authorized. Cecilia Woon's office will review your corporate capital coordinates shortly.")
     st.markdown('</div>', unsafe_allow_html=True)
-elif navigation_selection == "📚 Research & Education Vault":
-    st.markdown('<div style="padding: 0 45px 40px 45px;">', unsafe_allow_html=True)
-    st.markdown('<div class="reyou-panel-header">Treat the Exposure, Not Just the Premium</div>', unsafe_allow_html=True)
-    st.markdown('<div class="reyou-panel-subtitle">Explore our rigorous, research-backed advisory briefs. Designed to insulate high-net-worth portfolios from structural leakages and hidden policy traps.</div>', unsafe_allow_html=True)
-    
-    row1_c1, row1_c2, row1_c3 = st.columns(3, gap="large")
-    with row1_c1:
-        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 01</div><div class="reyou-card-title">How to Avoid Being Oversold</div><div class="reyou-card-desc">Stripping away commissions-driven insurance pitches to isolate pure capital-efficient protection values tailored to asset bounds.</div></div>""", unsafe_allow_html=True)
-    with row1_c2:
-        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 02</div><div class="reyou-card-title">Streamline Your Protection Plan</div><div class="reyou-card-desc">Consolidating overlapping policy layers to reduce drag and optimize premium cashflow overheads significantly.</div></div>""", unsafe_allow_html=True)
-    with row1_c3:
-        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 03</div><div class="reyou-card-title">Choosing a High-Utility Accident Plan</div><div class="reyou-card-desc">Evaluating high-tier disability payouts, workspace trauma recovery terms, and mobility adjustments over generic entry products.</div></div>""", unsafe_allow_html=True)
-
-    st.markdown('<div style="margin-top:30px;"></div>', unsafe_allow_html=True)
-    row2_c1, row2_c2, row2_c3 = st.columns(3, gap="large")
-    with row2_c1:
-        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 04</div><div class="reyou-card-title">The 1M65 Structural Strategy</div><div class="reyou-card-desc">Leveraging early compounding parameters across state balances to guarantee million-dollar liquidity nests safely by retirement milestones.</div></div>""", unsafe_allow_html=True)
-    with row2_c2:
-        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 05</div><div class="reyou-card-title">Managing Your ILP Policy Drag</div><div class="reyou-card-desc">Dissecting cost-of-insurance structures within Investment-Linked Policies to salvage capital allocation efficiency.</div></div>""", unsafe_allow_html=True)
-    with row2_c3:
-        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 06</div><div class="reyou-card-title">Pre-Crisis Resiliency Protocol</div><div class="reyou-card-desc">A unified tactical emergency sequence linking corporate legal standing, rapid cash buffers, and account authority overrides—ensuring your portfolio survives intact.</div></div>""", unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-elif navigation_selection == "🎯 The Rorschach Protocol (Leads)":
-    st.markdown('<div style="padding: 0 45px 40px 45px;">', unsafe_allow_html=True)
-    st.markdown('<div class="reyou-panel-header">The Rorschach Wealth Protocol</div>', unsafe_allow_html=True)
-    st.markdown('<div class="reyou-panel-subtitle">Most households realize they are under-insulated exactly five minutes too late. Select the abstract artifact block below that mirrors your financial subconscious right now.</div>', unsafe_allow_html=True)
-    
-    obj_c1, obj_c2, obj_c3, obj_c4 = st.columns(4, gap="medium")
-    with obj_c1:
-        st.image("https://unsplash.com", use_container_width=True)
-        st.checkbox("Artifact A: The Fractured Crystal Monolith")
-    with obj_c2:
-        st.image("https://unsplash.com", use_container_width=True)
-        st.checkbox("Artifact B: The Unanchored Void Grid")
-    with obj_c3:
-        st.image("https://unsplash.com", use_container_width=True)
-        st.checkbox("Artifact C: The Fluid Kinetic Melt")
-    with obj_c4:
-        st.image("https://unsplash.com", use_container_width=True)
-        st.checkbox("Artifact D: The Isolated Linear Axis")
-
-    st.markdown('<div style="margin-top:40px;"></div>', unsafe_allow_html=True)
-    st.markdown('### Your Financial Moment of Truth')
-    reflection_text = st.text_area("In a few sentences, tell us why this object connects to your current fears or goals regarding financial blindspots (P&L shocks, asset insulation, or family safety nets):")
-    
-    st.markdown('<div style="margin-top:20px;"></div>', unsafe_allow_html=True)
-    st.markdown('### Secure Your Strategy Coordinates')
-    col_lead1, col_lead2, col_lead3 = st.columns(3)
-    with col_lead1: lead_name = st.text_input("Full Professional Name")
-    with col_lead2: lead_email = st.text_input("Verified Email Coordinate")
-    with col_lead3: lead_phone = st.text_input("Mobile Coordinate (WhatsApp)")
-
-    st.markdown('<div style="margin-top:25px;"></div>', unsafe_allow_html=True)
-    if st.button("Submit Profile & Lock In Audit", type="primary"):
-        if lead_name and lead_email and reflection_text:
-            st.success(f"Protocol initialized, {lead_name}. Your behavioral reflection has been securely routed to Cecilia Woon's private office. Your complimentary Bespoke 2026 Sovereign Stress-Test Audit ($1,500 value) has been prioritized.")
-            if "cecilia" in reflection_text.lower():
-                st.info("⚡ Priority Partner Multiplier Activated: Your blueprint review has been fast-tracked to the immediate vanguard tier.")
-        else:
-            st.error("Authentication Error: Please complete the behavioral reflection field and baseline coordinates.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
 elif navigation_selection == "📊 Live Interactive 2026 CPF Engine":
     st.markdown('<div style="padding: 0 45px; margin-bottom: 30px;"><h2 class="sakazuki-h1">Sovereign Matrix <span>2026</span></h2></div>', unsafe_allow_html=True)
     col_t1, col_t2 = st.columns([1, 1.2], gap="large")

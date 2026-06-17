@@ -6,7 +6,7 @@ import streamlit as st
 st.set_page_config(page_title="Cecilia Woon | Private Wealth Console", layout="wide")
 
 # =========================================================================
-# 🏛️ GLOBAL SECURE IMMERSIVE PROFILE GRID MATRIX (ZERO-ERRORS MONOGRAM ENGINE)
+# 🏛️ GLOBAL SECURE IMMERSIVE CINEMATIC VIDEO ENGINE (ELVALABS CLONE)
 # =========================================================================
 GLOBAL_BUBBLE_CANVAS_HTML = r"""
 <div class="sakazuki-row" style="padding-left:0; padding-right:0;">
@@ -29,6 +29,16 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
         const grid = document.getElementById("avatar-matrix-grid");
         const ticker = document.getElementById("matrix-ticker");
         
+        // High-availability open vertical/square video clips that render instantly in sandboxed frames
+        const secure_video_loops = [
+            "https://mixkit.co",
+            "https://mixkit.co",
+            "https://mixkit.co",
+            "https://mixkit.co",
+            "https://mixkit.co",
+            "https://mixkit.co"
+        ];
+        
         profile_nodes.forEach((n, idx) => {
             const wrapper = document.createElement("div");
             wrapper.style.position = "relative";
@@ -36,47 +46,46 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
             wrapper.style.height = "54px";
             wrapper.style.borderRadius = "50%";
             wrapper.style.cursor = "pointer";
+            wrapper.style.overflow = "hidden";
             wrapper.style.display = "flex";
             wrapper.style.alignItems = "center";
             wrapper.style.justifyContent = "center";
-            wrapper.style.fontFamily = "'Inter', sans-serif";
-            wrapper.style.fontSize = "11px";
-            wrapper.style.fontWeight = "bold";
-            wrapper.style.transition = "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)";
-            
-            // Glassmorphism background effect matching elvalabs template
-            wrapper.style.background = "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%)";
-            wrapper.style.backdropFilter = "blur(10px)";
-            wrapper.style.webkitBackdropFilter = "blur(10px)";
+            wrapper.style.transition = "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)";
             
             const border_color = n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.25)";
-            wrapper.style.border = `1px solid ${border_color}`;
-            wrapper.style.color = n.sec === "Med" ? "#FF4D61" : n.sec === "Tech" ? "#D4AF37" : "#E4E4E7";
+            wrapper.style.border = `2px solid ${border_color}`;
+            wrapper.style.boxShadow = "0 8px 20px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.2)";
             
-            // Extract clean initials (e.g. "Staff Nurse" -> "SN", "GP Doctor" -> "GD")
-            const words = n.label.split(" ");
-            const initials = words.length > 1 ? (words[0][0] + words[1][0]) : n.label.substring(0, 2);
-            wrapper.innerText = initials.toUpperCase();
+            // Native HTML5 Video Element Injections - forces browser layer playback
+            const video = document.createElement("video");
+            video.src = secure_video_loops[idx % secure_video_loops.length];
+            video.autoplay = true;
+            video.loop = true;
+            video.muted = true;
+            video.playsInline = true;
+            video.setAttribute("webkit-playsinline", "true");
+            video.style.width = "100%";
+            video.style.height = "100%";
+            video.style.borderRadius = "50%";
+            video.style.objectFit = "cover";
+            video.style.pointerEvents = "none";
             
+            wrapper.appendChild(video);
             grid.appendChild(wrapper);
             
-            // Hover styling micro-interactions loop
+            // Live dynamic scaling hover interactions
             wrapper.addEventListener("mouseover", () => {
-                wrapper.style.transform = "scale(1.25)";
+                wrapper.style.transform = "scale(1.35)";
                 wrapper.style.borderColor = "#FF4D61";
-                wrapper.style.color = "#FFFFFF";
-                wrapper.style.background = n.sec === "Med" ? "rgba(227,24,55,0.25)" : n.sec === "Tech" ? "rgba(212,175,55,0.25)" : "rgba(255,255,255,0.15)";
-                wrapper.style.boxShadow = `0 0 15px ${border_color}`;
+                wrapper.style.boxShadow = `0 0 20px ${border_color}`;
                 ticker.style.color = "#FF4D61";
-                ticker.innerText = `\u26A1 [INSULATION CRITICAL] Sector: ${n.sec} // Profile: ${n.label} -> Monitored inside Cecilia Woon's risk mitigation system loop.`;
+                ticker.innerText = `\u26A1 [STREAMING ACTIVE] Sector: ${n.sec} // Profile Focus: ${n.label} -> Successfully linked into Cecilia's operational risk mitigation framework.`;
             });
             
             wrapper.addEventListener("mouseout", () => {
                 wrapper.style.transform = "scale(1)";
                 wrapper.style.borderColor = border_color;
-                wrapper.style.color = n.sec === "Med" ? "#FF4D61" : n.sec === "Tech" ? "#D4AF37" : "#E4E4E7";
-                wrapper.style.background = "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%)";
-                wrapper.style.boxShadow = "none";
+                wrapper.style.boxShadow = "0 8px 20px rgba(0,0,0,0.5)";
                 ticker.style.color = "#8A8A93";
                 ticker.innerText = "[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...";
             });
@@ -84,6 +93,7 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
     })();
 </script>
 """
+
 
 
 

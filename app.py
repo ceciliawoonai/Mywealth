@@ -432,7 +432,8 @@ if navigation_selection == "👑 Cecilia VIP AI Studio":
             
             st.markdown("### 📐 Module 01: Basic Edits")
             crop_pct = st.slider("Proportional Border Crop (%)", min_value=0, max_value=30, value=0, key="cecilia_crop")
-            rotate_deg = st.selectbox("Structural Rotation",, key="cecilia_rotate")
+            rotate_deg = st.selectbox("Structural Rotation", [0, 90, 180, 270], key="cecilia_rotate")
+
             flip_mode = st.radio("Mirror Flipping", ["None", "Horizontal Mirror", "Vertical Mirror"], key="cecilia_flip")
             
             st.markdown("<br>### ✨ Module 02: Advanced Generative Portrait Retouch", unsafe_allow_html=True)

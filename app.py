@@ -6,20 +6,52 @@ import streamlit as st
 st.set_page_config(page_title="Cecilia Woon | Private Wealth Console", layout="wide")
 
 # =========================================================================
-# 🏛️ GLOBAL SECURE IMMERSIVE CINEMATIC VIDEO ENGINE (ELVALABS CLONE)
+# 🏛️ GLOBAL SECURE IMMERSIVE KINETIC MATRIX ENGINE (SYNTAX CHECK FIX)
 # =========================================================================
 GLOBAL_BUBBLE_CANVAS_HTML = r"""
-<div class="sakazuki-row" style="padding-left:0; padding-right:0;">
+<div class="sakazuki-row" style="padding-left:0; padding-right:0; box-sizing:border-box;">
     <div class="sakazuki-left-label">The Collective</div>
     <div class="sakazuki-right-content">
         <div class="sakazuki-h3">The Lives We Protect</div>
-        <div class="sakazuki-p" style="margin-bottom:25px;">Hover your cursor across the active matrix profile network below. Every structural profession driving Singapore's infrastructure deserves customized clinical income shielding thresholds against unexpected lifespan tragedies.</div>
+        <div class="sakazuki-p" style="margin-bottom:25px; color:#A0A0A5; font-size:16px; line-height:1.7;">Hover your cursor across the active matrix profile network below. Every structural profession driving Singapore's infrastructure deserves customized clinical income shielding thresholds against unexpected lifespan tragedies.</div>
     </div>
 </div>
 
+<style>
+    @keyframes matrixPulse {
+        0% { transform: scale(0.85); opacity: 0.2; border-width: 1px; }
+        50% { transform: scale(1.05); opacity: 0.6; border-width: 2px; }
+        100% { transform: scale(0.85); opacity: 0.2; border-width: 1px; }
+    }
+    @keyframes fluidShift {
+        0% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+        50% { border-radius: 70% 30% 52% 48% / 60% 40% 60% 40%; }
+        100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+    }
+    .kinetic-bubble-node {
+        position: relative; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center;
+        cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 5;
+        background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-sizing: border-box;
+    }
+    .wave-core {
+        position: absolute; width: 85%; height: 85%; opacity: 0.5; z-index: 1;
+        animation: fluidShift 6s ease-in-out infinite alternate;
+        transition: all 0.3s ease; pointer-events: none;
+    }
+    .pulse-ring {
+        position: absolute; width: 100%; height: 100%; border-style: solid; border-radius: 50%; z-index: 2;
+        pointer-events: none; box-sizing: border-box;
+    }
+    .monogram-label-overlay {
+        position: relative; z-index: 10; color: #FFFFFF; font-family: 'Inter', sans-serif;
+        font-size: 11px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        pointer-events: none; text-align: center; line-height: 1;
+    }
+</style>
+
 <div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:35px 25px; width:100%; position:relative; min-height:420px; overflow:hidden; box-sizing:border-box;">
     <div id="matrix-ticker" style="font-family:'Courier New', monospace; font-size:12px; color:#8A8A93; margin-bottom:30px; min-height:18px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:12px;">[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...</div>
-    
     <div id="avatar-matrix-grid" style="display:flex; flex-wrap:wrap; justify-content:center; gap:18px; max-width:860px; margin:0 auto;"></div>
 </div>
 
@@ -29,63 +61,52 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
         const grid = document.getElementById("avatar-matrix-grid");
         const ticker = document.getElementById("matrix-ticker");
         
-        // High-availability open vertical/square video clips that render instantly in sandboxed frames
-        const secure_video_loops = [
-            "https://mixkit.co",
-            "https://mixkit.co",
-            "https://mixkit.co",
-            "https://mixkit.co",
-            "https://mixkit.co",
-            "https://mixkit.co"
-        ];
-        
         profile_nodes.forEach((n, idx) => {
-            const wrapper = document.createElement("div");
-            wrapper.style.position = "relative";
-            wrapper.style.width = "54px";
-            wrapper.style.height = "54px";
-            wrapper.style.borderRadius = "50%";
-            wrapper.style.cursor = "pointer";
-            wrapper.style.overflow = "hidden";
-            wrapper.style.display = "flex";
-            wrapper.style.alignItems = "center";
-            wrapper.style.justifyContent = "center";
-            wrapper.style.transition = "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)";
+            const node = document.createElement("div");
+            node.className = "kinetic-bubble-node";
             
-            const border_color = n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.25)";
-            wrapper.style.border = `2px solid ${border_color}`;
-            wrapper.style.boxShadow = "0 8px 20px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.2)";
+            const color = n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.3)";
+            const text_color = n.sec === "Med" ? "#FF4D61" : n.sec === "Tech" ? "#D4AF37" : "#E4E4E7";
+            node.style.border = `1px solid ${color}`;
+            node.style.borderRadius = "50%";
+            node.style.color = text_color;
             
-            // Native HTML5 Video Element Injections - forces browser layer playback
-            const video = document.createElement("video");
-            video.src = secure_video_loops[idx % secure_video_loops.length];
-            video.autoplay = true;
-            video.loop = true;
-            video.muted = true;
-            video.playsInline = true;
-            video.setAttribute("webkit-playsinline", "true");
-            video.style.width = "100%";
-            video.style.height = "100%";
-            video.style.borderRadius = "50%";
-            video.style.objectFit = "cover";
-            video.style.pointerEvents = "none";
+            const labelSpan = document.createElement("span");
+            labelSpan.className = "monogram-label-overlay";
+            labelSpan.innerText = n.init; // Leverages pre-computed Python text values safely
+            node.appendChild(labelSpan);
             
-            wrapper.appendChild(video);
-            grid.appendChild(wrapper);
+            const wave = document.createElement("div");
+            wave.className = "wave-core";
+            wave.style.background = n.sec === "Med" ? "rgba(227,24,55,0.12)" : n.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.04)";
+            wave.style.border = `1px solid ${color}`;
+            wave.style.animationDelay = `${idx * 0.15}s`;
             
-            // Live dynamic scaling hover interactions
-            wrapper.addEventListener("mouseover", () => {
-                wrapper.style.transform = "scale(1.35)";
-                wrapper.style.borderColor = "#FF4D61";
-                wrapper.style.boxShadow = `0 0 20px ${border_color}`;
+            const pulse = document.createElement("div");
+            pulse.className = "pulse-ring";
+            pulse.style.borderColor = color;
+            pulse.style.animation = `matrixPulse ${2 + (idx % 3) * 0.5}s linear infinite`;
+            pulse.style.animationDelay = `${idx * 0.2}s`;
+            
+            node.appendChild(wave);
+            node.appendChild(pulse);
+            grid.appendChild(node);
+            
+            node.addEventListener("mouseover", () => {
+                node.style.transform = "scale(1.3)";
+                node.style.borderColor = "#FF4D61";
+                node.style.color = "#FFFFFF";
+                node.style.boxShadow = `0 0 20px ${color}`;
+                wave.style.background = "rgba(255, 77, 97, 0.3)";
                 ticker.style.color = "#FF4D61";
-                ticker.innerText = `\u26A1 [STREAMING ACTIVE] Sector: ${n.sec} // Profile Focus: ${n.label} -> Successfully linked into Cecilia's operational risk mitigation framework.`;
+                ticker.innerText = `\u26A1 [INSULATION CRITICAL] Sector: ${n.sec} // Profile: ${n.label} -> Monitored inside Cecilia's biological risk mitigation system loop.`;
             });
             
-            wrapper.addEventListener("mouseout", () => {
-                wrapper.style.transform = "scale(1)";
-                wrapper.style.borderColor = border_color;
-                wrapper.style.boxShadow = "0 8px 20px rgba(0,0,0,0.5)";
+            node.addEventListener("mouseout", () => {
+                node.style.transform = "scale(1)";
+                node.style.borderColor = color;
+                node.style.boxShadow = "none";
+                wave.style.background = n.sec === "Med" ? "rgba(227,24,55,0.12)" : n.sec === "Tech" ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.04)";
                 ticker.style.color = "#8A8A93";
                 ticker.innerText = "[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...";
             });
@@ -93,6 +114,7 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
     })();
 </script>
 """
+
 
 
 
@@ -187,32 +209,28 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
 </div>
 """, unsafe_allow_html=True)
 
+    # Pre-computing the monogram initials in Python to ensure frictionless browser parsing
     bubble_data_payload = [
-        {"id": 1, "label": "Cardiologist", "sec": "Med"}, {"id": 2, "label": "Staff Nurse", "sec": "Med"},
-        {"id": 3, "label": "Radiographer", "sec": "Med"}, {"id": 4, "label": "Physio", "sec": "Med"},
-        {"id": 5, "label": "Scientist", "sec": "Med"}, {"id": 6, "label": "Elderly Care", "sec": "Med"},
-        {"id": 7, "label": "Vet Surgeon", "sec": "Med"}, {"id": 8, "label": "Pharmacist", "sec": "Med"},
-        {"id": 9, "label": "Dentist", "sec": "Med"}, {"id": 10, "label": "Therapist", "sec": "Med"},
-        {"id": 11, "label": "Teacher", "sec": "Edu"}, {"id": 12, "label": "Professor", "sec": "Edu"},
-        {"id": 13, "label": "SpecEd Coach", "sec": "Edu"}, {"id": 14, "label": "Policy Lead", "sec": "Edu"},
-        {"id": 15, "label": "Lawyer", "sec": "Edu"}, {"id": 16, "label": "SCDF Officer", "sec": "Edu"},
-        {"id": 17, "label": "Urban Planner", "sec": "Edu"}, {"id": 18, "label": "Social Worker", "sec": "Edu"},
-        {"id": 19, "label": "Archivist", "sec": "Edu"}, {"id": 20, "label": "Eco Officer", "sec": "Edu"},
-        {"id": 21, "label": "Cleaner Hero", "sec": "Ops"}, {"id": 22, "label": "Bus Captain", "sec": "Ops"},
-        {"id": 23, "label": "Port Operator", "sec": "Ops"}, {"id": 24, "label": "Logistics Sup", "sec": "Ops"},
-        {"id": 25, "label": "Security SCDF", "sec": "Ops"}, {"id": 26, "label": "Lift Tech", "sec": "Ops"},
-        {"id": 27, "label": "Delivery Rider", "sec": "Ops"}, {"id": 28, "label": "Project Manager", "sec": "Ops"},
-        {"id": 29, "label": "Air Traffic", "sec": "Ops"}, {"id": 30, "label": "Waste Engineer", "sec": "Ops"},
-        {"id": 31, "label": "AI Product Manager", "sec": "Tech"}, {"id": 32, "label": "Cyber Architect", "sec": "Tech"},
-        {"id": 33, "label": "UX Designer", "sec": "Tech"}, {"id": 34, "label": "Photojournalist", "sec": "Tech"},
-        {"id": 35, "label": "DevOps Engineer", "sec": "Tech"}, {"id": 36, "label": "Data Scientist", "sec": "Tech"},
-        {"id": 37, "label": "Audio Engineer", "sec": "Tech"}, {"id": 38, "label": "Media Creator", "sec": "Tech"},
-        {"id": 39, "label": "Biomed Tech", "sec": "Tech"}, {"id": 40, "label": "Cloud Lead", "sec": "Tech"},
-        {"id": 41, "label": "Hawker Legend", "sec": "Biz"}, {"id": 42, "label": "Hotel GM", "sec": "Biz"},
-        {"id": 43, "label": "Artisan Barista", "sec": "Biz"}, {"id": 44, "label": "Retail Lead", "sec": "Biz"},
-        {"id": 45, "label": "Cabin Crew", "sec": "Biz"}, {"id": 46, "label": "Compliance Officer", "sec": "Biz"},
-        {"id": 47, "label": "HR Specialist", "sec": "Biz"}, {"id": 48, "label": "Gym Coach", "sec": "Biz"},
-        {"id": 49, "label": "Agri Farmer", "sec": "Biz"}, {"id": 50, "label": "Art Curator", "sec": "Biz"}
+        {"id": 1, "label": "Staff Nurse", "init": "SN", "sec": "Med"},
+        {"id": 2, "label": "GP Doctor", "init": "GD", "sec": "Med"},
+        {"id": 3, "label": "Pharmacist", "init": "PH", "sec": "Med"},
+        {"id": 4, "label": "Physiotherapist", "init": "PT", "sec": "Med"},
+        {"id": 5, "label": "Bus Captain", "init": "BC", "sec": "Ops"},
+        {"id": 6, "label": "Cleaner Hero", "init": "CH", "sec": "Ops"},
+        {"id": 7, "label": "Delivery Rider", "init": "DR", "sec": "Ops"},
+        {"id": 8, "label": "Security Officer", "init": "SO", "sec": "Ops"},
+        {"id": 9, "label": "Port Operator", "init": "PO", "sec": "Ops"},
+        {"id": 10, "label": "Software Engineer", "init": "SE", "sec": "Tech"},
+        {"id": 11, "label": "HR Specialist", "init": "HR", "sec": "Tech"},
+        {"id": 12, "label": "Compliance Officer", "init": "CO", "sec": "Tech"},
+        {"id": 13, "label": "Customer Success", "init": "CS", "sec": "Tech"},
+        {"id": 14, "label": "Digital Marketing", "init": "DM", "sec": "Tech"},
+        {"id": 15, "label": "Primary Teacher", "init": "PT", "sec": "Edu"},
+        {"id": 16, "label": "Civil Servant", "init": "CS", "sec": "Edu"},
+        {"id": 17, "label": "Hawker Legend", "init": "HL", "sec": "Biz"},
+        {"id": 18, "label": "Artisan Barista", "init": "AB", "sec": "Biz"},
+        {"id": 19, "label": "Retail Assistant", "init": "RA", "sec": "Biz"},
+        {"id": 20, "label": "Cabin Crew", "init": "CC", "sec": "Biz"}
     ]
 
     nodes_json_payload = json.dumps(bubble_data_payload)

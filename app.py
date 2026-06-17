@@ -350,29 +350,21 @@ else:
     uploaded_file = st.file_uploader("Upload Image Coordinate (JPEG, JPG, PNG)", type=["jpg", "jpeg", "png"])
     
     if uploaded_file is not None:
-        # Retrieve binary buffer properties
         original_bytes = uploaded_file.size
         original_mb = original_bytes / (1024 * 1024)
-        
         st.info(f"📁 Raw File Parameters Loaded: **{uploaded_file.name}** ({original_mb:.2f} MB)")
         
-        # Load asset into memory matrix
         img = Image.open(uploaded_file)
         
-        # Configuration parameters column split
         col_c1, col_c2 = st.columns(2)
         with col_c1:
             quality_target = st.slider("Compression Quality Density Scale", min_value=10, max_value=100, value=75, step=5)
             st.caption("Lowering density shrinks bytes further. 75% preserves crisp, high-end website clarity.")
         
-        # Initialize processing output streams
         output_stream = io.BytesIO()
-        
-        # Enforce RGB standard conversion path if PNG profile contains alpha parameters
         if img.mode in ("RGBA", "P"):
             img = img.convert("RGB")
             
-        # Execute processing loop down to memory stream vectors
         img.save(output_stream, format="JPEG", quality=quality_target, optimize=True)
         compressed_bytes = output_stream.tell()
         compressed_mb = compressed_bytes / (1024 * 1024)
@@ -384,14 +376,14 @@ else:
             else:
                 st.warning(f"⚠️ Scale Warning: File size is {compressed_mb:.2f} MB. Lower the quality scale slightly to drop under 7MB.")
         
-        # Display instant visual preview before downloading
         st.image(output_stream, caption="Compressed Asset Preview Matrix", width=400)
         
-        # Download trigger button element
+        # Safe extraction of file root name
+        base_name = uploaded_file.name.rsplit('.', 1)[0]
         st.download_button(
             label="Download Compressed Output Asset",
             data=output_stream.getvalue(),
-            file_name=f"compressed_{uploaded_file.name.split('.')[0]}.jpg",
+            file_name=f"compressed_{base_name}.jpg",
             mime="image/jpeg",
             type="primary"
         )

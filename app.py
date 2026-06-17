@@ -6,125 +6,78 @@ import streamlit as st
 st.set_page_config(page_title="Cecilia Woon | Private Wealth Console", layout="wide")
 
 # =========================================================================
-# 🏛️ GLOBAL RAW TEMPLATE ISOLATION FRAMEWORK (AVATAR BUBBLE HOISTING)
+# 🏛️ GLOBAL SECURE IMMERSIVE PROFILE GRID MATRIX (ZERO-ERRORS ENGINE)
 # =========================================================================
 GLOBAL_BUBBLE_CANVAS_HTML = r"""
 <div class="sakazuki-row" style="padding-left:0; padding-right:0;">
     <div class="sakazuki-left-label">The Collective</div>
     <div class="sakazuki-right-content">
         <div class="sakazuki-h3">The Lives We Protect</div>
-        <div class="sakazuki-p" style="margin-bottom:25px;">Hover your cursor across the matrix network container below. Every structural profession driving Singapore's infrastructure deserves customized clinical income shielding thresholds against unexpected lifespan tragedies.</div>
+        <div class="sakazuki-p" style="margin-bottom:25px;">Hover your cursor across the active matrix profile matrix below. Every structural profession driving Singapore's infrastructure deserves customized clinical income shielding thresholds against unexpected lifespan tragedies.</div>
     </div>
 </div>
 
-<div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px; width:100%; position:relative; min-height:480px; overflow:hidden;">
-    <div id="matrix-ticker" style="font-family:'Courier New', monospace; font-size:12px; color:#FF4D61; margin-bottom:15px; min-height:18px;">[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...</div>
-    <div id="canvas-mount-node" style="display:flex; justify-content:center;"></div>
+<div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:35px 25px; width:100%; position:relative; min-height:420px; overflow:hidden; box-sizing:border-box;">
+    <div id="matrix-ticker" style="font-family:'Courier New', monospace; font-size:12px; color:#8A8A93; margin-bottom:30px; min-height:18px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:12px;">[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...</div>
+    <div id="avatar-matrix-grid" style="display:flex; flex-wrap:wrap; justify-content:center; gap:18px; max-width:860px; margin:0 auto;"></div>
 </div>
 
 <script>
     (function() {
-        const c_nodes = DATA_REPLACE_TOKEN;
-        const cv = document.createElement("canvas");
-        const ctx = cv.getContext("2d");
-        const mount = document.getElementById("canvas-mount-node");
+        const profile_nodes = DATA_REPLACE_TOKEN;
+        const grid = document.getElementById("avatar-matrix-grid");
+        const ticker = document.getElementById("matrix-ticker");
         
-        cv.width = 900; cv.height = 380;
-        cv.style.width = "100%"; cv.style.display = "block";
-        mount.appendChild(cv);
-
-        c_nodes.forEach((n, idx) => {
-            n.x = 450 + (Math.random() - 0.5) * 200;
-            n.y = 190 + (Math.random() - 0.5) * 150;
-            n.vx = (Math.random() - 0.5) * 0.8;
-            n.vy = (Math.random() - 0.5) * 0.8;
-            n.baseRadius = 26;
-            n.r = n.baseRadius;
-            n.img = new Image();
-            n.img.src = `https://unsplash.com{1500000000000 + (idx * 154321) % 9999999}?auto=format&fit=crop&w=80&h=80&q=80`;
-        });
+        const fallback_avatars = [
+            "https://pravatar.cc", "https://pravatar.cc", 
+            "https://pravatar.cc", "https://pravatar.cc",
+            "https://pravatar.cc", "https://pravatar.cc"
+        ];
         
-        let mouse = { x: -1000, y: -1000 };
-        cv.addEventListener("mousemove", (e) => {
-            const rect = cv.getBoundingClientRect();
-            mouse.x = (e.clientX - rect.left) * (cv.width / rect.width);
-            mouse.y = (e.clientY - rect.top) * (cv.height / rect.height);
-        });
-        cv.addEventListener("mouseleave", () => { mouse.x = -1000; mouse.y = -1000; });
-        
-        function loop() {
-            ctx.clearRect(0, 0, cv.width, cv.height);
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
-            ctx.lineWidth = 1;
-            for(let i=0; i<c_nodes.length; i++) {
-                for(let j=i+1; j<c_nodes.length; j++) {
-                    let dx = c_nodes[i].x - c_nodes[j].x;
-                    let dy = c_nodes[i].y - c_nodes[j].y;
-                    let dist = Math.sqrt(dx*dx + dy*dy);
-                    if(dist < 90) {
-                        ctx.beginPath(); ctx.moveTo(c_nodes[i].x, c_nodes[i].y);
-                        ctx.lineTo(c_nodes[j].x, c_nodes[j].y); ctx.stroke();
-                    }
-                }
-            }
+        profile_nodes.forEach((n, idx) => {
+            const wrapper = document.createElement("div");
+            wrapper.style.position = "relative";
+            wrapper.style.width = "52px";
+            wrapper.style.height = "52px";
+            wrapper.style.borderRadius = "50%";
+            wrapper.style.cursor = "pointer";
+            wrapper.style.transition = "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)";
             
-            let active_target = null;
-            for (let i = 0; i < c_nodes.length; i++) {
-                for (let j = i + 1; j < c_nodes.length; j++) {
-                    let dx = c_nodes[j].x - c_nodes[i].x;
-                    let dy = c_nodes[j].y - c_nodes[i].y;
-                    let dist = Math.sqrt(dx*dx + dy*dy);
-                    let minDist = c_nodes[i].r + c_nodes[j].r + 4;
-                    if (dist < minDist) {
-                        let overlap = minDist - dist;
-                        let ax = (dx / dist) * overlap * 0.5;
-                        let ay = (dy / dist) * overlap * 0.5;
-                        c_nodes[i].x -= ax; c_nodes[i].y -= ay;
-                        c_nodes[j].x += ax; c_nodes[j].y += ay;
-                    }
-                }
-            }
-
-            c_nodes.forEach(n => {
-                n.x += n.vx; n.y += n.vy;
-                if(n.x - n.baseRadius < 10 || n.x + n.baseRadius > cv.width - 10) n.vx *= -1;
-                if(n.y - n.baseRadius < 10 || n.y + n.baseRadius > cv.height - 10) n.vy *= -1;
-                
-                let m_dx = mouse.x - n.x; let m_dy = mouse.y - n.y;
-                let m_dist = Math.sqrt(m_dx*m_dx + m_dy*m_dy);
-                
-                if(m_dist < n.baseRadius * 1.5) {
-                    active_target = n;
-                    n.r = n.baseRadius * 1.3;
-                    n.x += m_dx * 0.02; n.y += m_dy * 0.02;
-                } else {
-                    n.r = n.r * 0.9 + n.baseRadius * 0.1;
-                }
-                
-                ctx.save(); ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.clip();
-                try { ctx.drawImage(n.img, n.x - n.r, n.y - n.r, n.r * 2, n.r * 2); } catch(e) { ctx.fillStyle = "#1A1A22"; ctx.fill(); }
-                ctx.restore();
-                
-                ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-                ctx.strokeStyle = m_dist < n.baseRadius * 1.5 ? "#FF4D61" : n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.15)";
-                ctx.lineWidth = m_dist < n.baseRadius * 1.5 ? 3 : 1.5; ctx.stroke();
+            const border_color = n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.3)";
+            wrapper.style.border = `2px solid ${border_color}`;
+            wrapper.style.boxShadow = "0 4px 10px rgba(0,0,0,0.4)";
+            
+            const avatar_img = document.createElement("img");
+            avatar_img.src = fallback_avatars[idx % fallback_avatars.length];
+            avatar_img.style.width = "100%";
+            avatar_img.style.height = "100%";
+            avatar_img.style.borderRadius = "50%";
+            avatar_img.style.objectFit = "cover";
+            avatar_img.style.display = "block";
+            
+            wrapper.appendChild(avatar_img);
+            grid.appendChild(wrapper);
+            
+            wrapper.addEventListener("mouseover", () => {
+                wrapper.style.transform = "scale(1.25)";
+                wrapper.style.borderColor = "#FF4D61";
+                wrapper.style.boxShadow = `0 0 15px ${border_color}`;
+                ticker.style.color = "#FF4D61";
+                ticker.innerText = `\u26A1 [INSULATION CRITICAL] Sector: ${n.sec} // Profile: ${n.label} -> Monitored inside Cecilia's biological risk mitigation system loop.`;
             });
             
-            if(active_target) {
-                document.getElementById("matrix-ticker").style.color = "#FF4D61";
-                document.getElementById("matrix-ticker").innerText = `\u26A1 [INSULATION CRITICAL] Sector: ${active_target.sec} // Profile: ${active_target.label} -> Monitored inside Cecilia's biological risk mitigation system loop.`;
-            } else {
-                document.getElementById("matrix-ticker").style.color = "#8A8A93";
-                document.getElementById("matrix-ticker").innerText = "[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...";
-            }
-            requestAnimationFrame(loop);
-        }
-        loop();
+            wrapper.addEventListener("mouseout", () => {
+                wrapper.style.transform = "scale(1)";
+                wrapper.style.borderColor = border_color;
+                wrapper.style.boxShadow = "0 4px 10px rgba(0,0,0,0.4)";
+                ticker.style.color = "#8A8A93";
+                ticker.innerText = "[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...";
+            });
+        });
     })();
 </script>
-<script>
-    if(false) {
 """
+# --- ELVALABS & SAKAZUKI INSPIRED ULTRA-DARK SYSTEM DESIGN STYLES ---
 st.markdown("""
 <style>
     html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] { background-color: #050507 !important; color: #FFFFFF !important; font-family: 'Inter', sans-serif; }
@@ -167,6 +120,7 @@ st.markdown("""
 
 st.markdown('<div class="brand-container"><div class="brand-text">CECILIA WOON <span>Private Wealth Advisory</span></div></div>', unsafe_allow_html=True)
 
+# --- WORKSPACE CONTROL SELECTION NAVIGATION SIDEBAR ---
 st.sidebar.markdown('**System Navigator**')
 navigation_selection = st.sidebar.radio("Go To Section Workspace:", [
     "🌐 Clinical P&L Philosophy",
@@ -249,6 +203,69 @@ if navigation_selection == "🌐 Clinical P&L Philosophy":
     if st.button("Initialize Risk Analysis Sequence", type="primary"):
         st.success("Sequence authorized. Cecilia Woon's office will review your corporate capital coordinates shortly.")
     st.markdown('</div>', unsafe_allow_html=True)
+
+elif navigation_selection == "📚 Research & Education Vault":
+    st.markdown('<div style="padding: 0 45px 40px 45px;">', unsafe_allow_html=True)
+    st.markdown('<div class="reyou-panel-header">Treat the Exposure, Not Just the Premium</div>', unsafe_allow_html=True)
+    st.markdown('<div class="reyou-panel-subtitle">Explore our rigorous, research-backed advisory briefs. Designed to insulate high-net-worth portfolios from structural leakages and hidden policy traps.</div>', unsafe_allow_html=True)
+    
+    row1_c1, row1_c2, row1_c3 = st.columns(3, gap="large")
+    with row1_c1:
+        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 01</div><div class="reyou-card-title">How to Avoid Being Oversold</div><div class="reyou-card-desc">Stripping away commissions-driven insurance pitches to isolate pure capital-efficient protection values tailored to asset bounds.</div></div>""", unsafe_allow_html=True)
+    with row1_c2:
+        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 02</div><div class="reyou-card-title">Streamline Your Protection Plan</div><div class="reyou-card-desc">Consolidating overlapping policy layers to reduce drag and optimize premium cashflow overheads significantly.</div></div>""", unsafe_allow_html=True)
+    with row1_c3:
+        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 03</div><div class="reyou-card-title">Choosing a High-Utility Accident Plan</div><div class="reyou-card-desc">Evaluating high-tier disability payouts, workspace trauma recovery terms, and mobility adjustments over generic entry products.</div></div>""", unsafe_allow_html=True)
+
+    st.markdown('<div style="margin-top:30px;"></div>', unsafe_allow_html=True)
+    row2_c1, row2_c2, row2_c3 = st.columns(3, gap="large")
+    with row2_c1:
+        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 04</div><div class="reyou-card-title">The 1M65 Structural Strategy</div><div class="reyou-card-desc">Leveraging early compounding parameters across state balances to guarantee million-dollar liquidity nests safely by retirement milestones.</div></div>""", unsafe_allow_html=True)
+    with row2_c2:
+        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 05</div><div class="reyou-card-title">Managing Your ILP Policy Drag</div><div class="reyou-card-desc">Dissecting cost-of-insurance structures within Investment-Linked Policies to salvage capital allocation efficiency.</div></div>""", unsafe_allow_html=True)
+    with row2_c3:
+        st.markdown("""<div class="reyou-card"><div class="reyou-card-num">Brief 06</div><div class="reyou-card-title">Pre-Crisis Resiliency Protocol</div><div class="reyou-card-desc">A unified tactical emergency sequence linking corporate legal standing, rapid cash buffers, and account authority overrides—ensuring your portfolio survives intact.</div></div>""", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+elif navigation_selection == "🎯 The Rorschach Protocol (Leads)":
+    st.markdown('<div style="padding: 0 45px 40px 45px;">', unsafe_allow_html=True)
+    st.markdown('<div class="reyou-panel-header">The Rorschach Wealth Protocol</div>', unsafe_allow_html=True)
+    st.markdown('<div class="reyou-panel-subtitle">Most households realize they are under-insulated exactly five minutes too late. Select the abstract artifact block below that mirrors your financial subconscious right now.</div>', unsafe_allow_html=True)
+    
+    obj_c1, obj_c2, obj_c3, obj_c4 = st.columns(4, gap="medium")
+    with obj_c1:
+        st.image("https://unsplash.com", use_container_width=True)
+        st.checkbox("Artifact A: The Fractured Crystal Monolith")
+    with obj_c2:
+        st.image("https://unsplash.com", use_container_width=True)
+        st.checkbox("Artifact B: The Unanchored Void Grid")
+    with obj_c3:
+        st.image("https://unsplash.com", use_container_width=True)
+        st.checkbox("Artifact C: The Fluid Kinetic Melt")
+    with obj_c4:
+        st.image("https://unsplash.com", use_container_width=True)
+        st.checkbox("Artifact D: The Isolated Linear Axis")
+
+    st.markdown('<div style="margin-top:40px;"></div>', unsafe_allow_html=True)
+    st.markdown('### Your Financial Moment of Truth')
+    reflection_text = st.text_area("In a few sentences, tell us why this object connects to your current fears or goals regarding financial blindspots (P&L shocks, asset insulation, or family safety nets):")
+    
+    st.markdown('<div style="margin-top:20px;"></div>', unsafe_allow_html=True)
+    st.markdown('### Secure Your Strategy Coordinates')
+    col_lead1, col_lead2, col_lead3 = st.columns(3)
+    with col_lead1: lead_name = st.text_input("Full Professional Name")
+    with col_lead2: lead_email = st.text_input("Verified Email Coordinate")
+    with col_lead3: lead_phone = st.text_input("Mobile Coordinate (WhatsApp)")
+
+    st.markdown('<div style="margin-top:25px;"></div>', unsafe_allow_html=True)
+    if st.button("Submit Profile & Lock In Audit", type="primary"):
+        if lead_name and lead_email and reflection_text:
+            st.success(f"Protocol initialized, {lead_name}. Your behavioral reflection has been securely routed to Cecilia Woon's private office. Your complimentary Bespoke 2026 Sovereign Stress-Test Audit ($1,500 value) has been prioritized.")
+            if "cecilia" in reflection_text.lower():
+                st.info("⚡ Priority Partner Multiplier Activated: Your blueprint review has been fast-tracked to the immediate vanguard tier.")
+        else:
+            st.error("Authentication Error: Please complete the behavioral reflection field and baseline coordinates.")
+    st.markdown('</div>', unsafe_allow_html=True)
+
 elif navigation_selection == "📊 Live Interactive 2026 CPF Engine":
     st.markdown('<div style="padding: 0 45px; margin-bottom: 30px;"><h2 class="sakazuki-h1">Sovereign Matrix <span>2026</span></h2></div>', unsafe_allow_html=True)
     col_t1, col_t2 = st.columns([1, 1.2], gap="large")

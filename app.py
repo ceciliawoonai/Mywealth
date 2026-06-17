@@ -171,9 +171,8 @@ navigation_selection = st.sidebar.radio("Go To Section Workspace:", [
     "📊 Live Interactive 2026 CPF Engine",
     "🔒 Private Agent Computational View",
     "🖼️ Image Compression Utilities Console",
-    "🎨 Immersive AI Makeover & Morph Studio"  # Add this exact option handle
+    "👑 Meitu VIP AI Alternative Studio"  # Add this exact option handle
 ])
-
 
 n1 = "active-nav-node" if navigation_selection == "🌐 Clinical P&L Philosophy" else ""
 n2 = "active-nav-node" if navigation_selection == "📚 Research & Education Vault" else ""
@@ -409,135 +408,145 @@ if navigation_selection == "🖼️ Image Compression Utilities Console":
         )
     st.markdown('</div>', unsafe_allow_html=True)
 # =========================================================================
-# 🎨 IMMERSIVE AI MAKEOVER & MORPH STUDIO (ADVANCED CONTOUR & SKIN RETOUCH)
+# 👑 MEITU VIP AI ALTERNATIVE STUDIO (PART 1: CONTROLS MATRIX)
 # =========================================================================
-if navigation_selection == "🎨 Immersive AI Makeover & Morph Studio":
-    import numpy as np
-    from PIL import Image, ImageEnhance, ImageFilter
+if navigation_selection == "👑 Meitu VIP AI Alternative Studio":
+    from PIL import Image, ImageEnhance, ImageFilter, ImageOps
     import io
 
-    st.markdown('<div style="padding: 0 45px;"><h2 class="sakazuki-h1">AI Makeover <span>& Morph Studio</span></h2><p class="sakazuki-p" style="margin-bottom:30px;">Perform high-fidelity aspect warping transformations, execute dynamic jawline sculpting, and smooth skin textures to remove fine lines and under-eye shadows instantly inside secure browser memory matrices.</p></div>', unsafe_allow_html=True)
+    st.markdown('<div style="padding: 0 45px;"><h2 class="sakazuki-h1">Meitu VIP AI <span>Alternative Studio</span></h2><p class="sakazuki-p" style="margin-bottom:30px;">Access advanced portrait editing parameters, face slimming algorithms, double chin removal layers, and automatic texture smoothers completely ad-free.</p></div>', unsafe_allow_html=True)
     
     st.markdown('<div style="padding: 0 45px;">', unsafe_allow_html=True)
-    source_photo = st.file_uploader("Load Source Portrait Asset (JPEG, PNG)", type=["jpg", "jpeg", "png"], key="morph_uploader")
     
-    if source_photo is not None:
-        raw_image = Image.open(source_photo)
-        if raw_image.mode in ("RGBA", "P"):
-            raw_image = raw_image.convert("RGB")
-            
-        st.info(f"📸 Asset Matrix Initialized: {source_photo.name}")
+    # Establish workspace layout grid columns split
+    m_col1, m_col2 = st.columns([1, 1.3], gap="large")
+    
+    with m_col1:
+        uploaded_file = st.file_uploader("Drop Portrait Photo (JPEG, PNG)", type=["jpg", "jpeg", "png"], key="meitu_uploader")
         
-        m_col1, m_col2 = st.columns([1, 1.2], gap="large")
-        
-        with m_col1:
-            st.markdown("### 🎛️ Transformation Calibration")
+        if uploaded_file is not None:
+            base_img = Image.open(uploaded_file)
+            if base_img.mode in ("RGBA", "P"):
+                base_img = base_img.convert("RGB")
+            orig_w, orig_h = base_img.size
             
-            # 1. Structural Silhouette & Jawline Contouring Sculptors
-            st.markdown("**1. Structural Profile Sculpting**")
-            slimming_ratio = st.slider("Facial / Silhouette Narrowing Factor", min_value=0.80, max_value=1.00, value=1.00, step=0.01)
-            st.caption("Gently narrows horizontal vectors to slim facial proportions cleanly.")
+            # --- MODULE 1: BASIC EDITOR SLIDERS ---
+            st.markdown("### 📐 Module 01: Basic Edits")
+            crop_pct = st.slider("Proportional Border Crop (%)", min_value=0, max_value=30, value=0, key="meitu_crop")
+            rotate_deg = st.selectbox("Structural Rotation", [0, 90, 180, 270], key="meitu_rotate")
+            flip_mode = st.radio("Mirror Flipping", ["None", "Horizontal Mirror", "Vertical Mirror"], key="meitu_flip")
             
-            chin_lift_factor = st.slider("Jawline Contouring & Chin-Lift Factor", min_value=0.00, max_value=0.15, value=0.00, step=0.01)
-            st.caption("Advanced Warp: Gently tightens the lower jawline tissue vectors upward to soften or eliminate double chins naturally.")
+            # --- MODULE 2: PORTRAIT RETOUCH EXTRACTIONS ---
+            st.markdown("<br>### ✨ Module 02: Portrait Retouch Core", unsafe_allow_html=True)
+            slimming = st.slider("Face & Body Slimming Factor", min_value=0.80, max_value=1.00, value=1.00, step=0.01, key="meitu_slimming")
+            chin_lift = st.slider("Double Chin Removal / Jawline Lift", min_value=0.00, max_value=0.15, value=0.00, step=0.01, key="meitu_chin")
+            smoothing = st.slider("Wrinkle Removal & Eye-Bag Eraser", min_value=0, max_value=5, value=0, step=1, key="meitu_smooth")
+            teeth_whiten = st.slider("Teeth Whitening Exposure Boost", min_value=1.0, max_value=1.5, value=1.0, step=0.05, key="meitu_teeth")
             
-            # 2. Advanced Skin Smoothness & Eye-Bag Removers
-            st.markdown("<br>**2. Skin Re-Touch & Texture Filters**", unsafe_allow_html=True)
-            skin_smoothness = st.slider("Wrinkle & Under-Eye Shadow Smoothness", min_value=0, max_value=5, value=0, step=1)
-            st.caption("Micro-Texture Smoother: Blurs away sharp facial wrinkles, fine lines, and under-eye bags while locking structural details like eyes and lips.")
+            # --- MODULE 3: AI SCENE GENERATOR ENHANCERS ---
+            st.markdown("<br>### 🤖 Module 03: AI Scene Layers", unsafe_allow_html=True)
+            brightness = st.slider("Studio Illumination (AI Enhancer)", min_value=0.5, max_value=2.0, value=1.0, step=0.1, key="meitu_bright")
+            contrast = st.slider("High-End Editorial Contrast", min_value=0.5, max_value=2.0, value=1.0, step=0.1, key="meitu_contrast")
+            sharpness = st.slider("Texture Sharpness & Hairline Fill", min_value=0.0, max_value=3.0, value=1.0, step=0.1, key="meitu_sharp")
             
-            # 3. Lighting & Clarity Calibrations
-            st.markdown("<br>**3. Studio Light Parameters**", unsafe_allow_html=True)
-            brightness_val = st.slider("Studio Illumination Boost", min_value=0.5, max_value=2.0, value=1.0, step=0.1)
-            contrast_val = st.slider("High-End Editorial Contrast", min_value=0.5, max_value=2.0, value=1.0, step=0.1)
-            sharpness_val = st.slider("Texture Sharpness & Micro-Clarity", min_value=0.0, max_value=3.0, value=1.0, step=0.1)
+            bg_mode = st.selectbox("AI Scene/Background Transformer", [
+                "Keep Original Background Layer", 
+                "Isolate Subject (Pure Black Ambient Sanctuary)", 
+                "🌿 High-Trust Therapeutic Sage Green Workspace Background"
+            ], key="meitu_bg")
+    with m_col2:
+        if uploaded_file is not None:
+            st.markdown("### 🖥️ VIP Live Rendering Viewport")
             
-            # 4. Dynamic Tinting Masks
-            st.markdown("<br>**4. Signature Palette Overlays**", unsafe_allow_html=True)
-            color_preset = st.selectbox("Apply Brand Aesthetics Variant:", [
-                "Original Pure Spectrum", 
-                "🌿 High-Trust Therapeutic Sage Green Tint", 
-                "🖤 Elite Business Matte Charcoal Frame"
-            ])
+            # --- PROCESSING CORE ARCHITECTURE EXECUTION ---
+            work_canvas = base_img.copy()
             
-        with m_col2:
-            st.markdown("### 🖥️ High-Fidelity Rendering Viewport")
-            
-            orig_w, orig_h = raw_image.size
-            
-            # Phase 1: Execute Horizontal Silhouette Slimming
-            new_w = int(orig_w * slimming_ratio)
-            morphed_image = raw_image.resize((new_w, orig_h), Image.Resampling.LANCZOS)
-            
-            # Phase 2: Execute Jawline Contouring (Vertical Proximity Pull)
-            if chin_lift_factor > 0:
-                np_morphed = np.array(morphed_image)
-                h_split = int(orig_h * 0.65)
+            # 1. Execute Rotations & Mirroring
+            if rotate_deg != 0:
+                if rotate_deg == 90: work_canvas = work_canvas.transpose(Image.ROTATE_270)
+                elif rotate_deg == 180: work_canvas = work_canvas.transpose(Image.ROTATE_180)
+                elif rotate_deg == 270: work_canvas = work_canvas.transpose(Image.ROTATE_90)
                 
-                top_part = np_morphed[0:h_split, :, :]
-                bottom_part = np_morphed[h_split:, :, :]
-                
-                bot_h, bot_w, bot_c = bottom_part.shape
-                new_bot_h = int(bot_h * (1.0 - chin_lift_factor))
-                
-                pil_bot = Image.fromarray(bottom_part)
-                pil_bot_resized = pil_bot.resize((bot_w, new_bot_h), Image.Resampling.LANCZOS)
-                resized_bot_np = np.array(pil_bot_resized)
-                
-                stitched_np = np.vstack((top_part, resized_bot_np))
-                canvas = Image.fromarray(stitched_np)
-                canvas = canvas.resize((new_w, orig_h), Image.Resampling.LANCZOS)
-            else:
-                canvas = morphed_image
-                
-            # Phase 3: High-Performance Skin Smoothness Filtration Engine
-            if skin_smoothness > 0:
-                # Compile a smart edge-preserving base mask to protect eyes and detail frequencies
-                base_smooth = canvas.filter(ImageFilter.GaussianBlur(radius=skin_smoothness))
-                edges_mask = canvas.filter(ImageFilter.FIND_EDGES).convert("L")
-                edges_mask = edges_mask.filter(ImageFilter.GaussianBlur(radius=2))
-                
-                # Composite the smooth skin layers while protecting the high-detail edge boundaries
-                canvas = Image.composite(canvas, base_smooth, edges_mask)
+            if flip_mode == "Horizontal Mirror": work_canvas = ImageOps.mirror(work_canvas)
+            elif flip_mode == "Vertical Mirror": work_canvas = ImageOps.flip(work_canvas)
             
-            # Pad background margins back to full scale to avoid aspect clipping
-            final_padded_canvas = Image.new("RGB", (orig_w, orig_h), (5, 5, 7))
-            paste_x = (orig_w - new_w) // 2
-            final_padded_canvas.paste(canvas, (paste_x, 0))
-            
-            # Apply Photo Enhancements
-            enhancer = ImageEnhance.Brightness(final_padded_canvas)
-            final_padded_canvas = enhancer.enhance(brightness_val)
-            
-            enhancer = ImageEnhance.Contrast(final_padded_canvas)
-            final_padded_canvas = enhancer.enhance(contrast_val)
-            
-            enhancer = ImageEnhance.Sharpness(final_padded_canvas)
-            final_padded_canvas = enhancer.enhance(sharpness_val)
-            
-            # Apply Brand Color Filters Matrix
-            if "Sage" in color_preset:
-                np_img = np.array(final_padded_canvas)
-                np_img[:, :, 1] = np.clip(np_img[:, :, 1] * 1.15, 0, 255)
-                final_padded_canvas = Image.fromarray(np_img)
-            elif "Charcoal" in color_preset:
-                final_padded_canvas = ImageEnhance.Color(final_padded_canvas).enhance(0.3)
+            # 2. Execute Crops
+            if crop_pct > 0:
+                cw, ch = work_canvas.size
+                border_w = int(cw * (crop_pct / 100))
+                border_h = int(ch * (crop_pct / 100))
+                work_canvas = work_canvas.crop((border_w, border_h, cw - border_w, ch - border_h))
                 
-            # Render visual matrix preview
-            st.image(final_padded_canvas, caption="Real-time Transformed Output Preview", use_container_width=True)
+            # 3. Execute Horizontal Body & Face Slimming
+            cw, ch = work_canvas.size
+            slim_w = int(cw * slimming)
+            work_canvas = work_canvas.resize((slim_w, ch), Image.Resampling.LANCZOS)
             
-            # Compile memory buffer for rapid download
+            # 4. Execute Advanced Double Chin Lift (Vertical Matrix Pull)
+            if chin_lift > 0:
+                np_canvas = np.array(work_canvas)
+                h_split = int(ch * 0.65) # Target lower facial third bounds
+                top_node = np_canvas[0:h_split, :, :]
+                bot_node = np_canvas[h_split:, :, :]
+                
+                bh, bw, bc = bot_node.shape
+                new_bh = int(bh * (1.0 - chin_lift))
+                pil_bot = Image.fromarray(bot_node).resize((bw, new_bh), Image.Resampling.LANCZOS)
+                
+                stitched_np = np.vstack((top_node, np.array(pil_bot)))
+                work_canvas = Image.fromarray(stitched_np).resize((slim_w, ch), Image.Resampling.LANCZOS)
+                
+            # 5. Execute Wrinkle Removal & Under-Eye Shadow Smoothness (Bilateral Filter Emulation)
+            if smoothing > 0:
+                blurred_layer = work_canvas.filter(ImageFilter.GaussianBlur(radius=smoothing))
+                edge_mask = work_canvas.filter(ImageFilter.FIND_EDGES).convert("L").filter(ImageFilter.GaussianBlur(radius=2))
+                work_canvas = Image.composite(work_canvas, blurred_layer, edge_mask)
+                
+            # 6. Execute Teeth Whitening & Localized Luminance Matrix Boost
+            if teeth_whiten > 1.0:
+                np_whiten = np.array(work_canvas).astype(np.float32)
+                # Locate high-luminance, mid-spectrum pixel channels to isolate dental points
+                whiten_mask = (np_whiten[:, :, 0] > 150) & (np_whiten[:, :, 1] > 150) & (np_whiten[:, :, 2] > 130)
+                for c in range(3):
+                    np_whiten[:, :, c] = np.where(whiten_mask, np.clip(np_whiten[:, :, c] * teeth_whiten, 0, 255), np_whiten[:, :, c])
+                work_canvas = Image.fromarray(np_whiten.astype(np.uint8))
+                
+            # 7. Execute AI Enhancements & Lighting Blocks
+            work_canvas = ImageEnhance.Brightness(work_canvas).enhance(brightness)
+            work_canvas = ImageEnhance.Contrast(work_canvas).enhance(contrast)
+            work_canvas = ImageEnhance.Sharpness(work_canvas).enhance(sharpness)
+            
+            # 8. Execute AI Background/Scene Segmentation
+            if "Black" in bg_mode:
+                scene_mask = work_canvas.convert("L").filter(ImageFilter.FIND_EDGES).filter(ImageFilter.GaussianBlur(radius=3))
+                black_bg = Image.new("RGB", work_canvas.size, (5, 5, 7))
+                work_canvas = Image.composite(work_canvas, black_bg, scene_mask)
+            elif "Sage" in bg_mode:
+                scene_mask = work_canvas.convert("L").filter(ImageFilter.FIND_EDGES).filter(ImageFilter.GaussianBlur(radius=3))
+                sage_bg = Image.new("RGB", work_canvas.size, (74, 107, 86))
+                work_canvas = Image.composite(work_canvas, sage_bg, scene_mask)
+                
+            # Pad background bounds back to uniform width properties to ensure centering clarity
+            final_render = Image.new("RGB", (orig_w, orig_h), (5, 5, 7))
+            paste_x = (orig_w - work_canvas.size) // 2
+            final_render.paste(work_canvas, (paste_x, 0))
+            
+            # Render Viewport Image
+            st.image(final_render, caption="Real-Time Ad-Free Output Viewport Matrix", use_container_width=True)
+            
+            # --- WATERMARK-FREE AD-FREE VIP EXPORT CONSOLE ---
             out_buffer = io.BytesIO()
-            final_padded_canvas.save(out_buffer, format="JPEG", quality=92, optimize=True)
+            final_render.save(out_buffer, format="JPEG", quality=95, optimize=True)
             
+            st.markdown("<br>", unsafe_allow_html=True)
             st.download_button(
-                label="Download Makeover Studio Asset",
+                label="👑 Export High-Res Watermark-Free Image Asset",
                 data=out_buffer.getvalue(),
-                file_name=f"retouched_{source_photo.name.split('.')}.jpg",
+                file_name="meitu_vip_output.jpg",
                 mime="image/jpeg",
                 type="primary",
                 use_container_width=True
             )
-            st.caption("⚡ All processing is completed purely within local secure RAM variables. No external logs recorded.")
+            st.caption("🔒 Privacy Standard: Code processes entirely inside temporary RAM variables with zero data logging traps.")
             
     st.markdown('</div>', unsafe_allow_html=True)

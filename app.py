@@ -6,7 +6,7 @@ import streamlit as st
 st.set_page_config(page_title="Cecilia Woon | Private Wealth Console", layout="wide")
 
 # =========================================================================
-# 🏛️ GLOBAL SECURE IMMERSIVE CINEMA LOOP MATRIX (SECURE HTTPS CLONE)
+# 🏛️ GLOBAL SECURE IMMERSIVE PROFILE GRID MATRIX (ZERO-ERRORS MONOGRAM ENGINE)
 # =========================================================================
 GLOBAL_BUBBLE_CANVAS_HTML = r"""
 <div class="sakazuki-row" style="padding-left:0; padding-right:0;">
@@ -20,7 +20,7 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
 <div id="bubble-canvas-container" style="background:#0B0B0E; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:35px 25px; width:100%; position:relative; min-height:420px; overflow:hidden; box-sizing:border-box;">
     <div id="matrix-ticker" style="font-family:'Courier New', monospace; font-size:12px; color:#8A8A93; margin-bottom:30px; min-height:18px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:12px;">[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...</div>
     
-    <div id="avatar-matrix-grid" style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px; max-width:860px; margin:0 auto;"></div>
+    <div id="avatar-matrix-grid" style="display:flex; flex-wrap:wrap; justify-content:center; gap:18px; max-width:860px; margin:0 auto;"></div>
 </div>
 
 <script>
@@ -29,56 +29,54 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
         const grid = document.getElementById("avatar-matrix-grid");
         const ticker = document.getElementById("matrix-ticker");
         
-        // Secure, cross-origin open HTTPS streaming loops that guarantee delivery in iframes
-        const video_loops = [
-            "https://vimeo.com",
-            "https://vimeo.com",
-            "https://vimeo.com",
-            "https://vimeo.com"
-        ];
-        
         profile_nodes.forEach((n, idx) => {
             const wrapper = document.createElement("div");
             wrapper.style.position = "relative";
-            wrapper.style.width = "56px";
-            wrapper.style.height = "56px";
+            wrapper.style.width = "54px";
+            wrapper.style.height = "54px";
             wrapper.style.borderRadius = "50%";
             wrapper.style.cursor = "pointer";
-            wrapper.style.overflow = "hidden";
-            wrapper.style.transition = "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)";
+            wrapper.style.display = "flex";
+            wrapper.style.alignItems = "center";
+            wrapper.style.justifyContent = "center";
+            wrapper.style.fontFamily = "'Inter', sans-serif";
+            wrapper.style.fontSize = "11px";
+            wrapper.style.fontWeight = "bold";
+            wrapper.style.transition = "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)";
+            
+            // Glassmorphism background effect matching elvalabs template
+            wrapper.style.background = "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%)";
+            wrapper.style.backdropFilter = "blur(10px)";
+            wrapper.style.webkitBackdropFilter = "blur(10px)";
             
             const border_color = n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.25)";
-            wrapper.style.border = `2px solid ${border_color}`;
-            wrapper.style.boxShadow = "0 8px 24px rgba(0,0,0,0.5)";
+            wrapper.style.border = `1px solid ${border_color}`;
+            wrapper.style.color = n.sec === "Med" ? "#FF4D61" : n.sec === "Tech" ? "#D4AF37" : "#E4E4E7";
             
-            const video = document.createElement("video");
-            video.src = video_loops[idx % video_loops.length];
-            video.autoplay = true;
-            video.loop = true;
-            video.muted = true;
-            video.playsInline = true;
-            video.setAttribute("webkit-playsinline", "true");
-            video.style.width = "100%";
-            video.style.height = "100%";
-            video.style.borderRadius = "50%";
-            video.style.objectFit = "cover";
-            video.style.pointerEvents = "none";
+            // Extract clean initials (e.g. "Staff Nurse" -> "SN", "GP Doctor" -> "GD")
+            const words = n.label.split(" ");
+            const initials = words.length > 1 ? (words[0][0] + words[1][0]) : n.label.substring(0, 2);
+            wrapper.innerText = initials.toUpperCase();
             
-            wrapper.appendChild(video);
             grid.appendChild(wrapper);
             
+            // Hover styling micro-interactions loop
             wrapper.addEventListener("mouseover", () => {
-                wrapper.style.transform = "scale(1.35)";
+                wrapper.style.transform = "scale(1.25)";
                 wrapper.style.borderColor = "#FF4D61";
-                wrapper.style.boxShadow = `0 0 20px ${border_color}`;
+                wrapper.style.color = "#FFFFFF";
+                wrapper.style.background = n.sec === "Med" ? "rgba(227,24,55,0.25)" : n.sec === "Tech" ? "rgba(212,175,55,0.25)" : "rgba(255,255,255,0.15)";
+                wrapper.style.boxShadow = `0 0 15px ${border_color}`;
                 ticker.style.color = "#FF4D61";
-                ticker.innerText = `\u26A1 [STREAMING SYSTEM] Category: ${n.sec} // Target Client: ${n.label} -> Protection matrices successfully insulated against sudden operational halts.`;
+                ticker.innerText = `\u26A1 [INSULATION CRITICAL] Sector: ${n.sec} // Profile: ${n.label} -> Monitored inside Cecilia Woon's risk mitigation system loop.`;
             });
             
             wrapper.addEventListener("mouseout", () => {
                 wrapper.style.transform = "scale(1)";
                 wrapper.style.borderColor = border_color;
-                wrapper.style.boxShadow = "0 8px 24px rgba(0,0,0,0.5)";
+                wrapper.style.color = n.sec === "Med" ? "#FF4D61" : n.sec === "Tech" ? "#D4AF37" : "#E4E4E7";
+                wrapper.style.background = "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%)";
+                wrapper.style.boxShadow = "none";
                 ticker.style.color = "#8A8A93";
                 ticker.innerText = "[SYSTEM ACTIVE] Scan network profiles to evaluate structural risk models...";
             });
@@ -86,6 +84,7 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
     })();
 </script>
 """
+
 
 
 # --- ELVALABS & SAKAZUKI INSPIRED ULTRA-DARK SYSTEM DESIGN STYLES ---

@@ -6,7 +6,7 @@ import streamlit as st
 st.set_page_config(page_title="Cecilia Woon | Private Wealth Console", layout="wide")
 
 # =========================================================================
-# 🏛️ GLOBAL SECURE IMMERSIVE CINEMA LOOP MATRIX (ELVALABS CORE CLONE)
+# 🏛️ GLOBAL SECURE IMMERSIVE CINEMA LOOP MATRIX (SECURE HTTPS CLONE)
 # =========================================================================
 GLOBAL_BUBBLE_CANVAS_HTML = r"""
 <div class="sakazuki-row" style="padding-left:0; padding-right:0;">
@@ -29,17 +29,14 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
         const grid = document.getElementById("avatar-matrix-grid");
         const ticker = document.getElementById("matrix-ticker");
         
-        // High-availability cinematic micro-video loop nodes that bypass canvas origin security blocks
+        // Secure, cross-origin open HTTPS streaming loops that guarantee delivery in iframes
         const video_loops = [
-            "https://mixkit.co",
-            "https://mixkit.co",
-            "https://mixkit.co",
-            "https://mixkit.co",
-            "https://mixkit.co",
-            "https://mixkit.co"
+            "https://vimeo.com",
+            "https://vimeo.com",
+            "https://vimeo.com",
+            "https://vimeo.com"
         ];
         
-        profile_nodes.forEach((n, idx) => {
         profile_nodes.forEach((n, idx) => {
             const wrapper = document.createElement("div");
             wrapper.style.position = "relative";
@@ -52,15 +49,15 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
             
             const border_color = n.sec === "Med" ? "#E31837" : n.sec === "Tech" ? "#D4AF37" : "rgba(255, 255, 255, 0.25)";
             wrapper.style.border = `2px solid ${border_color}`;
-            wrapper.style.boxShadow = "0 8px 24px rgba(0,0,0,0.5), inset 0 0 8px rgba(255,255,255,0.2)";
+            wrapper.style.boxShadow = "0 8px 24px rgba(0,0,0,0.5)";
             
             const video = document.createElement("video");
             video.src = video_loops[idx % video_loops.length];
-
             video.autoplay = true;
             video.loop = true;
             video.muted = true;
             video.playsInline = true;
+            video.setAttribute("webkit-playsinline", "true");
             video.style.width = "100%";
             video.style.height = "100%";
             video.style.borderRadius = "50%";
@@ -70,7 +67,6 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
             wrapper.appendChild(video);
             grid.appendChild(wrapper);
             
-            // Kinetic scaling micro-interactions loop
             wrapper.addEventListener("mouseover", () => {
                 wrapper.style.transform = "scale(1.35)";
                 wrapper.style.borderColor = "#FF4D61";
@@ -90,6 +86,7 @@ GLOBAL_BUBBLE_CANVAS_HTML = r"""
     })();
 </script>
 """
+
 
 # --- ELVALABS & SAKAZUKI INSPIRED ULTRA-DARK SYSTEM DESIGN STYLES ---
 st.markdown("""

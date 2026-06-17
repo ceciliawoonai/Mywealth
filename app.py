@@ -171,7 +171,7 @@ navigation_selection = st.sidebar.radio("Go To Section Workspace:", [
     "📊 Live Interactive 2026 CPF Engine",
     "🔒 Private Agent Computational View",
     "🖼️ Image Compression Utilities Console",
-    "👑 Cecilia VIP AI Alternative Studio"  # Add this exact option handle
+    "👑 Cecilia VIP AI Studio"  # MUST MATCH THIS EXACT STRING
 ])
 
 n1 = "active-nav-node" if navigation_selection == "🌐 Clinical P&L Philosophy" else ""
